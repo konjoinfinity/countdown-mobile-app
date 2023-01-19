@@ -1,17 +1,51 @@
-import { StyleSheet, TouchableOpacity, Alert, useColorScheme } from 'react-native';
+import { StyleSheet, TouchableOpacity, Alert, useColorScheme, Animated } from 'react-native';
+import React, {useRef} from 'react';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
 import { useTheme } from '@react-navigation/native';
+import { RadialGradient } from 'react-native-gradients';
 
 export default function TabOneScreen({ navigation }) {
   const { colors } = useTheme();
   let colorScheme = useColorScheme();
+  const xAnim = useRef(new Animated.Value(100)).current;
+  const yAnim = useRef(new Animated.Value(50)).current;
+
+  const move = () => {
+    Animated.timing(xAnim, {
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(yAnim, {
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const colorList = [
+    {offset: '40%', color: '#525461', opacity: '0.6'},
+    {offset: '85%', color: '#363747', opacity: '0.6'}
+  ]
 
   return (
     <View style={styles.container}>
-      <View style={{height: 500, width: 400, backgroundColor: 'rgb(82,84,97)', borderRadius: 200, opacity: 0.1}}/>
-      <View style={{position: "absolute", height: 400, width: 300, backgroundColor: 'radial-gradient(circle, rgba(82,84,97,1) 0%, rgba(54,55,71,1) 100%)'}} />
+      <View style={{top: 300, left: 100, borderRadius: 5, zIndex: 2, height: 20, width: 50, backgroundColor: colors.text, position: "absolute", transform: [{rotate: '45deg'}]}} />
+      <View style={{top: 400, left: 75, borderRadius: 5, zIndex: 2, height: 20, width: 50, backgroundColor: colors.text, position: "absolute", transform: [{rotate: '0deg'}]}} />
+      <View style={{top: 450, left: 75, borderRadius: 5, zIndex: 2, height: 20, width: 50, backgroundColor: colors.text, position: "absolute", transform: [{rotate: '-25deg'}]}} />
+    <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{zIndex: 1}}/>
+    {/* <Animated.View
+        style={[
+          styles.fadingContainer,
+          {transform: [{
+            translateY: yAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [150, 0]  // 0 : 150, 0.5 : 75, 1 : 0
+            })
+          }]}
+        ]}>
+    <Text>TESTING</Text>
+    </Animated.View> */}
+    
+    
       <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,
@@ -49,5 +83,10 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: 'powderblue',
+    position: "absolute",
   },
 });
