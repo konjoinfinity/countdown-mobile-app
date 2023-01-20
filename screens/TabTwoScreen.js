@@ -7,9 +7,11 @@ import * as Animatable from 'react-native-animatable';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Card, CardElement } from '@ui-kitten/components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 
+const timerskey = "timers";
 const size = 100 ;
 const symbolSize = 16;
 const radius = size / 2;
@@ -34,15 +36,26 @@ export default function App({navigation}) {
    {deg: 198, hex: '#e45570'},{deg: 207, hex: '#e45570'},{deg: 216, hex: '#e25071'},{deg: 225, hex: '#e25071'},{deg: 234, hex: '#e04c72'},{deg: 243, hex: '#e04c72'},{deg: 252, hex: '#de4772'},{deg: 261, hex: '#de4772'},
    {deg: 270, hex: '#dd4372'},{deg: 279, hex: '#dd4372'},{deg: 288, hex: '#db3e73'},{deg: 297, hex: '#db3e73'},{deg: 306, hex: '#d93a74'},{deg: 315, hex: '#d93a74'},{deg: 324, hex: '#d83574'},{deg: 333, hex: '#d83574'},
    {deg: 342, hex: '#d63174'},{deg: 351, hex: '#d63174'},{deg: 360, hex: '#d42c75'}])
-    const colorList = [{offset: '40%', color: '#525461', opacity: '0.3'},{offset: '75%', color: '#3c3f5f', opacity: '0.5'}]
-    const [cards, setCards] = useState([{id:1},{id:2},{id:3},{id:4}])
     const [timers, setTimers] = useState([])
 
-    // useEffect(() => {
-    //   const timer =
-    //     counter > 0 && setInterval(() => {setCounter(counter - 1), Haptics.selectionAsync()}, 1000);
-    //   return () => clearInterval(timer);
-    // }, [counter]);
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
+        getTimers();
+        });
+        return unsubscribe;
+    }, [navigation])
+
+    const getTimers = async() => {
+      try {
+        await AsyncStorage.getItem(timerskey, (error, result) => {
+          result !== null && result !== "[]"
+            ? setTimers(JSON.parse(result))
+            : setTimers([]);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
 function getXY(deg){
   let angleRad = deg * Math.PI / 180;
@@ -94,9 +107,6 @@ function getXY(deg){
 
     return (
       <ScrollView contentContainerStyle={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
-        {/* <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/> */}
-         {/* <Text style={{fontSize: 28, color: '#fff', alignSelf: "center", position: "absolute", top: 100}}>{counter === 0 ? 'Times Up!' : `${counter}`}</Text> */}
-
          {timers && timers.length > 0 ? timers.map((tile, id) => { 
     return <Tile key={id} tile={tile} />
          }) : (
@@ -104,8 +114,7 @@ function getXY(deg){
           <Text style={{color: "#e2e4f7", fontSize:40, textAlign: "center"}}>No Timers</Text>
           <Text style={{color: "#e2e4f7", fontSize:20, textAlign: "center"}}>Tap + to add one</Text>
           </View>
-         )
-        }
+         )}
     <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,

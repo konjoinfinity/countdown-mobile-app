@@ -24,16 +24,26 @@ export default function ModalScreen({navigation}) {
     console.log(currentDate)
   };
 
+  const getTimers = async() => {
+    try {
+      await AsyncStorage.getItem(timerskey, (error, result) => {
+        result !== null && result !== "[]"
+          ? setTimers(JSON.parse(result))
+          : setTimers([]);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     nameinput.current.focus();
-  //  try{
-  //       AsyncStorage.removeItem(timerskey)
-  //     } catch(e) {
-  //       console.log(e)
-  //     }
-  //     console.log('Done.')
-}, [])
-
+    const unsubscribe = navigation.addListener('focus', () => {
+      getTimers();
+      });
+      return unsubscribe;
+  }, [navigation])
+  
   const startCountdown = async() => {
     try {
       if (name !== "") {
