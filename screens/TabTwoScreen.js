@@ -25,15 +25,13 @@ export default function App({navigation}) {
   const { colors } = useTheme();
    const [degrees, setDegrees] = useState([0, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108, 117, 126, 135, 144, 153, 162, 
     171, 180, 189, 198, 207, 216, 225, 234, 243, 252, 261, 270, 279, 288, 297, 306, 315, 324, 333, 342, 351, 360])
-    const tickFade = useRef(new Animated.Value(1)).current;
-    const tickFade1 = useRef(new Animated.Value(1)).current;
+    const [itDelay, setItdelay] = useState(0)
     const colorList = [
       {offset: '40%', color: '#525461', opacity: '0.3'},
       {offset: '75%', color: '#3c3f5f', opacity: '0.6'}
     ]
 
   useEffect(() => {
-    fadeOut()
   }, []);
 
 function getXY(deg){
@@ -41,34 +39,44 @@ function getXY(deg){
       let x = radius * Math.cos(angleRad) + center - symbolSize / 2;
       let y = radius * Math.sin(angleRad) + center - symbolSize / 2;
       return {x: x - 27, y: y}
-}
+    }
 
-const fadeOut = () => {
-  Animated.timing(tickFade, {
-    toValue: 0,
-    duration: 1000,
-    useNativeDriver: true,
-  }).start();
-  Animated.timing(tickFade1, {
-    toValue: 0,
-    duration: 1500,
-    useNativeDriver: true,
-  }).start();
-};
+  function endAnim(tick) {
+    if(tick == 39) {
+      setDegrees([])
+      setTimeout(() => {
+        setDegrees([0, 9, 18, 27, 36, 45, 54, 63, 72, 
+          81, 90, 99, 108, 117, 126, 135, 144, 153, 162, 
+          171, 180, 189, 198, 207, 216, 225, 234, 243, 252, 
+          261, 270, 279, 288, 297, 306, 315, 324, 333, 342, 351, 360])
+      }, 10)
+    } 
+  }
 
     return (
       <View style={{ flex: 1, justifyContent:'center', alignItems:'center', backgroundColor: "#2e3048" }}>
         <Text style={{position: "absolute", top: 100, color: colors.text, fontSize: 40}}>Countdown</Text>
-        <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/>
+        {/* <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/> */}
         <View style={{ width: size, height: size, borderRadius: size / 2, position: "absolute"}}>
+        
         {degrees && degrees.length > 0 && (degrees.map((deg, id) => { 
           let xandy = getXY(deg)
          return <AnimatableView
          key={id}
+         animation="fadeIn"
+         duration={1500}
+         useNativeDriver={true}>
+          <AnimatableView
            animation="fadeOut"
-           delay={id * 200}
-           duration={2000}><Tick x={xandy.x} y={xandy.y} deg={deg} /></AnimatableView>
+           delay={id * 500}
+           duration={500}
+           useNativeDriver={true}
+           onAnimationEnd={() => endAnim(id)}>
+            <Tick x={xandy.x} y={xandy.y} deg={deg} />
+           </AnimatableView>
+           </AnimatableView>
         }))}
+        
     </View>
     <TouchableOpacity
               style={{position: 'absolute',
