@@ -36,6 +36,7 @@ export default function App({navigation}) {
    {deg: 342, hex: '#d63174'},{deg: 351, hex: '#d63174'},{deg: 360, hex: '#d42c75'}])
     const colorList = [{offset: '40%', color: '#525461', opacity: '0.3'},{offset: '75%', color: '#3c3f5f', opacity: '0.5'}]
     const [cards, setCards] = useState([{id:1},{id:2},{id:3},{id:4}])
+    const [timers, setTimers] = useState([])
 
     // useEffect(() => {
     //   const timer =
@@ -47,7 +48,7 @@ function getXY(deg){
   let angleRad = deg * Math.PI / 180;
       let x = radius * Math.cos(angleRad) + center - symbolSize / 2;
       let y = radius * Math.sin(angleRad) + center - symbolSize / 2;
-      return {x: x - 8, y: y + 75}
+      return {x: x - 3, y: y + 95}
     }
 
   function endAnim(tick) {
@@ -60,7 +61,17 @@ function getXY(deg){
     } 
   }
   
-  const tile = (<Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.6, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
+  function Tick({x, y, deg, hex}){
+    return (
+      <View style={{borderRadius: 5, left: x, top: y, position:'absolute',
+          height: 6, width: 40, transform: [{rotate: `${deg}deg`}], backgroundColor: hex
+          }} />
+        )
+    }
+
+  function Tile({tile}){
+    return(
+<Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.65, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
   {degrees && degrees.map((deg, id) => { 
   let xandy = getXY(deg.deg)
   return <AnimatableView
@@ -73,19 +84,28 @@ function getXY(deg){
      <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
       </AnimatableView>
       })}
-      <View style={{justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-      <Text style={{color: "white"}}>Title</Text>
+      <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: "column"}}>
+      <Text style={{color: "white"}}>{tile.name}</Text>
+      <Text style={{color: "white"}}>{tile.date}</Text>
       </View>
-      </Card>) 
+      </Card>
+    )
+  }
 
     return (
-      <View style={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
+      <ScrollView contentContainerStyle={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
         {/* <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/> */}
          {/* <Text style={{fontSize: 28, color: '#fff', alignSelf: "center", position: "absolute", top: 100}}>{counter === 0 ? 'Times Up!' : `${counter}`}</Text> */}
 
-         {cards.map((value, id) => { 
-    return <View key={value.id}>{tile}</View>
-         })}
+         {timers && timers.length > 0 ? timers.map((tile, id) => { 
+    return <Tile key={id} tile={tile} />
+         }) : (
+          <View style={{alignItems:"center", justifyContent: 'space-evenly', height: Dimensions.get('window').height * 0.8 }}>
+          <Text style={{color: "#e2e4f7", fontSize:40, textAlign: "center"}}>No Timers</Text>
+          <Text style={{color: "#e2e4f7", fontSize:20, textAlign: "center"}}>Tap + to add one</Text>
+          </View>
+         )
+        }
     <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,
@@ -109,6 +129,6 @@ function getXY(deg){
                 <MIcon color={'#fff'} name="add" style={{padding: 10 }} size={70} />
                 </LinearGradient>
               </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
 } 
