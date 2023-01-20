@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, useColorScheme, Text, Animated } from 'react-native';
+import { View, TouchableOpacity, useColorScheme, Text, Animated, Dimensions, ScrollView } from 'react-native';
 import { RadialGradient } from 'react-native-gradients';
 import { useTheme } from '@react-navigation/native';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import * as Animatable from 'react-native-animatable';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
+import { Card, CardElement } from '@ui-kitten/components';
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 
-const size = 275 ;
+const size = 100 ;
 const symbolSize = 16;
 const radius = size / 2;
 const center = radius;
@@ -17,7 +18,7 @@ const center = radius;
 export function Tick({x, y, deg, hex}){
   return (
     <View style={{borderRadius: 5, left: x, top: y, position:'absolute',
-        height: 8, width: 70, transform: [{rotate: `${deg}deg`}], backgroundColor: hex
+        height: 6, width: 50, transform: [{rotate: `${deg}deg`}], backgroundColor: hex
         }} />
       )
   }
@@ -34,18 +35,19 @@ export default function App({navigation}) {
    {deg: 270, hex: '#dd4372'},{deg: 279, hex: '#dd4372'},{deg: 288, hex: '#db3e73'},{deg: 297, hex: '#db3e73'},{deg: 306, hex: '#d93a74'},{deg: 315, hex: '#d93a74'},{deg: 324, hex: '#d83574'},{deg: 333, hex: '#d83574'},
    {deg: 342, hex: '#d63174'},{deg: 351, hex: '#d63174'},{deg: 360, hex: '#d42c75'}])
     const colorList = [{offset: '40%', color: '#525461', opacity: '0.3'},{offset: '75%', color: '#3c3f5f', opacity: '0.5'}]
+    const [cards, setCards] = useState([{id:1},{id:2},{id:3},{id:4}])
 
-    useEffect(() => {
-      const timer =
-        counter > 0 && setInterval(() => {setCounter(counter - 1), Haptics.selectionAsync()}, 1000);
-      return () => clearInterval(timer);
-    }, [counter]);
+    // useEffect(() => {
+    //   const timer =
+    //     counter > 0 && setInterval(() => {setCounter(counter - 1), Haptics.selectionAsync()}, 1000);
+    //   return () => clearInterval(timer);
+    // }, [counter]);
 
 function getXY(deg){
   let angleRad = deg * Math.PI / 180;
       let x = radius * Math.cos(angleRad) + center - symbolSize / 2;
       let y = radius * Math.sin(angleRad) + center - symbolSize / 2;
-      return {x: x - 27, y: y}
+      return {x: x - 8, y: y + 20}
     }
 
   function endAnim(tick) {
@@ -58,27 +60,41 @@ function getXY(deg){
     } 
   }
   
+  const tile = (<Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.6, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
+  {degrees && degrees.map((deg, id) => { 
+  let xandy = getXY(deg.deg)
+  return <AnimatableView
+      key={id}
+      animation="fadeOut"
+      delay={id * 500}
+      duration={500}
+      useNativeDriver={true}
+      onAnimationEnd={() => endAnim(id)}>
+     <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
+      </AnimatableView>
+      })}
+      </Card>) 
+
+   
 
     return (
-      <View style={{ flex: 1, justifyContent:'center', alignItems:'center', backgroundColor: "#2e3048" }}>
+      <View style={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
+        {/* <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-evenly" }}>
+     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
+     <Text style={{color: "#e2e4f7"}}>Test</Text>
+     </Card>
+     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
+     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
+     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
+     </View> */}
+        {/* <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/> */}
+         {/* <Text style={{fontSize: 28, color: '#fff', alignSelf: "center", position: "absolute", top: 100}}>{counter === 0 ? 'Times Up!' : `${counter}`}</Text> */}
     
-        <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/>
-        {clock == true &&
-        <View style={{ width: size, height: size, borderRadius: size / 2, position: "absolute"}}>
-        <Text style={{fontSize: 28, color: '#fff', alignSelf: "center", position: "absolute", top: 100}}>{counter === 0 ? 'Times Up!' : `${counter}`}</Text>
-        {degrees && degrees.length > 0 && (degrees.map((deg, id) => { 
-          let xandy = getXY(deg.deg)
-         return <AnimatableView
-           key={id}
-           animation="fadeOut"
-           delay={id * 500}
-           duration={500}
-           useNativeDriver={true}
-           onAnimationEnd={() => endAnim(id)}>
-          <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
-           </AnimatableView>
-        }))}
-    </View>}
+         
+         {cards.map((value, id) => { 
+    return <View key={value.id}>{tile}</View>
+         })}
+     
     <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,
@@ -94,8 +110,9 @@ function getXY(deg){
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row'}}
-                onPress={() => setClock(true)
-                // navigation.navigate("Modal")
+                onPress={() => 
+                  // setClock(true)
+                navigation.navigate("Modal")
                 }>
                   <LinearGradient colors={['#f7876b', '#d42c75']} style={{borderRadius: 50 }}>
                 <MIcon color={'#fff'} name="add" style={{padding: 5 }} size={75} />
