@@ -47,7 +47,7 @@ function getXY(deg){
   let angleRad = deg * Math.PI / 180;
       let x = radius * Math.cos(angleRad) + center - symbolSize / 2;
       let y = radius * Math.sin(angleRad) + center - symbolSize / 2;
-      return {x: x - 8, y: y + 20}
+      return {x: x - 8, y: y + 75}
     }
 
   function endAnim(tick) {
@@ -73,35 +73,26 @@ function getXY(deg){
      <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
       </AnimatableView>
       })}
+      <View style={{justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+      <Text style={{color: "white"}}>Title</Text>
+      </View>
       </Card>) 
-
-   
 
     return (
       <View style={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
-        {/* <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-evenly" }}>
-     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
-     <Text style={{color: "#e2e4f7"}}>Test</Text>
-     </Card>
-     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
-     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
-     <Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, width: Dimensions.get('window').width * 0.45, marginTop: 10}}/>
-     </View> */}
         {/* <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} style={{position: 'absolute', zIndex: 2}}/> */}
          {/* <Text style={{fontSize: 28, color: '#fff', alignSelf: "center", position: "absolute", top: 100}}>{counter === 0 ? 'Times Up!' : `${counter}`}</Text> */}
-    
-         
+
          {cards.map((value, id) => { 
     return <View key={value.id}>{tile}</View>
          })}
-     
     <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,
               right: 35,
               zIndex: 2,
-              shadowColor: colorScheme == "dark" ? 'rgba(100,100,100,.4)' : 'rgba(0,0,0,.4)', 
-              shadowOffset: { height: 2.5, width: 2.5 }, 
+              shadowColor: 'rgba(255,255,255,.4)', 
+              shadowOffset: { height: 1, width: 1 }, 
               shadowOpacity: 1, 
               shadowRadius: 1, 
               backgroundColor: "white",
@@ -114,8 +105,8 @@ function getXY(deg){
                   // setClock(true)
                 navigation.navigate("Modal")
                 }>
-                  <LinearGradient colors={['#f7876b', '#d42c75']} style={{borderRadius: 50 }}>
-                <MIcon color={'#fff'} name="add" style={{padding: 5 }} size={75} />
+                  <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={['#d42c75', '#f7876b']} style={{borderRadius: 50 }}>
+                <MIcon color={'#fff'} name="add" style={{padding: 10 }} size={70} />
                 </LinearGradient>
               </TouchableOpacity>
       </View>
