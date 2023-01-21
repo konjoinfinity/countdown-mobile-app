@@ -21,7 +21,6 @@ export default function ModalScreen({navigation}) {
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
-    console.log(currentDate)
   };
 
   const getTimers = async() => {
@@ -55,7 +54,6 @@ export default function ModalScreen({navigation}) {
         setTimers(newCountdown)
         navigation.navigate("Root")
         await AsyncStorage.setItem(timerskey, JSON.stringify(newCountdown));
-        console.log(timers)
       } else {
         Haptics.selectionAsync()
         Alert.alert(
