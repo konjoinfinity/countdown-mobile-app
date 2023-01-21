@@ -77,8 +77,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
   }
 
     return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
-      
-      
       <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 75, backgroundColor: "#33364f", flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
       {/* <AnimatableView
       animation={"bounceInUp"}
