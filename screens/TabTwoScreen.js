@@ -31,12 +31,6 @@ export default function App({navigation}) {
   const { colors } = useTheme();
   const [clock, setClock] = useState(false)
   const [counter, setCounter] = useState(30)
-   const [degrees, setDegrees] = useState([{deg: 0, hex: '#f7876b'}, {deg: 9, hex: '#f7876b'}, {deg: 18, hex: '#f5826b'}, {deg: 27, hex: '#f5826b'}, {deg: 36, hex: '#f47e6c'}, {deg: 45, hex: '#f47e6c'}, 
-   {deg: 54, hex: '#f2796c'}, {deg: 63, hex: '#f2796c'}, {deg: 72, hex: '#f0756d'}, {deg: 81, hex: '#f0756d'}, {deg: 90, hex: '#ee706e'}, {deg: 99, hex: '#ee706e'}, {deg: 108, hex: '#ec6c6e'}, {deg: 117, hex: '#ec6c6e'},
-   {deg: 126, hex: '#eb676e'}, {deg: 135, hex: '#eb676e'}, {deg: 144, hex: '#e9636f'}, {deg: 153, hex: '#e9636f'}, {deg: 162, hex: '#e75e70'}, {deg: 171, hex: '#e75e70'}, {deg: 180, hex: '#e65a70'}, {deg: 189, hex: '#e65a70'},
-   {deg: 198, hex: '#e45570'},{deg: 207, hex: '#e45570'},{deg: 216, hex: '#e25071'},{deg: 225, hex: '#e25071'},{deg: 234, hex: '#e04c72'},{deg: 243, hex: '#e04c72'},{deg: 252, hex: '#de4772'},{deg: 261, hex: '#de4772'},
-   {deg: 270, hex: '#dd4372'},{deg: 279, hex: '#dd4372'},{deg: 288, hex: '#db3e73'},{deg: 297, hex: '#db3e73'},{deg: 306, hex: '#d93a74'},{deg: 315, hex: '#d93a74'},{deg: 324, hex: '#d83574'},{deg: 333, hex: '#d83574'},
-   {deg: 342, hex: '#d63174'},{deg: 351, hex: '#d63174'},{deg: 360, hex: '#d42c75'}])
     const [timers, setTimers] = useState([])
 
     useEffect(() => {
@@ -58,86 +52,47 @@ export default function App({navigation}) {
       }
     }
 
-function getXY(deg){
-  let angleRad = deg * Math.PI / 180;
-      let x = radius * Math.cos(angleRad) + center - symbolSize / 2;
-      let y = radius * Math.sin(angleRad) + center - symbolSize / 2;
-      return {x: x - 3, y: y + 95}
-    }
-
-  function endAnim(tick) {
-    if(tick == 39) {
-      let degstate = degrees
-      setDegrees([])
-      setTimeout(() => {
-        setDegrees(degstate)
-      }, 500)
-    } 
-  }
-  
-  function Tick({x, y, deg, hex}){
-    return (
-      <View style={{borderRadius: 5, left: x, top: y, position:'absolute',
-          height: 6, width: 40, transform: [{rotate: `${deg}deg`}], backgroundColor: hex
-          }} />
-        )
-    }
-
-  function Tile({tile}){
+  function Tile({tile, id}){
     var totalsecs = (new Date(tile.date).getTime() - new Date().getTime()) / 1000;
-   
     return(
-<TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.65, 
-width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
-  {/* {degrees && degrees.map((deg, id) => { 
-  let xandy = getXY(deg.deg)
-  return <AnimatableView
-      key={id}
-      animation="fadeOut"
-      delay={id * 500}
-      duration={500}
-      useNativeDriver={true}
-      onAnimationEnd={() => endAnim(id)}>
-     <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
-      </AnimatableView>
-      })} */}
+<TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, 
+width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabOne", {name: tile.name, date: tile.date, id: id})}}>
+      <Text style={{color: "#e2e4f7", textAlign: "center", padding: 15}}>{new Date(tile.date).toDateString()}</Text>
       <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20}}>
       <CountDown
         digitTxtStyle={{color: "#e2e4f7"}}
         timeLabelStyle={{color: "#e2e4f7"}}
         until={totalsecs}
-        // new Date(tile.date).getSeconds() - new Date().getSeconds()
         onFinish={() => console.log('finished')}
-        onPress={() => console.log('hello')}
         size={15}
         digitStyle={{backgroundColor: "transparent"}}
       />
       </View>
       <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: "column"}}>
-      <Text style={{color: "white"}}>{tile.name}</Text>
-      <Text style={{color: "white"}}>{tile.date}</Text>
+      <Text style={{color: "#e2e4f7", padding: 15, fontSize: 22}}>{tile.name}</Text>
+      
       </View>
       </TouchableOpacity>
 
     )
   }
 
-    return (
-      <ScrollView contentContainerStyle={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75 }}>
+    return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
+      <ScrollView contentContainerStyle={{ flex: 1, justifyContent:"space-evenly", alignItems: 'center', backgroundColor: "#2e3048", flexDirection:"row", flexWrap:"wrap", paddingTop: 75, backgroundColor: "#33364f" }}>
          {timers && timers.length > 0 ? timers.map((tile, id) => { 
-    return <Tile key={id} tile={tile} />
+    return <Tile key={id} tile={tile} id={id} />
          }) : (
           <View style={{alignItems:"center", justifyContent: 'space-evenly', height: Dimensions.get('window').height * 0.8 }}>
           <Text style={{color: "#e2e4f7", fontSize:40, textAlign: "center"}}>No Timers</Text>
           <Text style={{color: "#e2e4f7", fontSize:20, textAlign: "center"}}>Tap + to add one</Text>
           </View>
          )}
-    <TouchableOpacity
+      </ScrollView>
+      <TouchableOpacity
               style={{position: 'absolute',
               bottom: 100,
               right: 35,
-              zIndex: 2,
-              shadowColor: 'rgba(255,255,255,.4)', 
+              shadowColor: 'rgba(200,200,200,.4)', 
               shadowOffset: { height: 1, width: 1 }, 
               shadowOpacity: 1, 
               shadowRadius: 1, 
@@ -155,6 +110,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
                 <MIcon color={'#fff'} name="add" style={{padding: 10 }} size={70} />
                 </LinearGradient>
               </TouchableOpacity>
-      </ScrollView>
+      </View>
     );
 } 

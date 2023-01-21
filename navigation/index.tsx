@@ -40,6 +40,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={TabTwoScreen} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="TabOne" component={TabOneScreen} options={{headerShown: false}}/>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} options={{title: 'Add Countdown', headerStyle: {backgroundColor: '#d42c75'} }}/>
       </Stack.Group>
@@ -57,19 +58,19 @@ function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        })}
-      />
+    // <BottomTab.Navigator
+    //   initialRouteName="TabOne"
+    //   screenOptions={{
+    //     tabBarActiveTintColor: Colors[colorScheme].tint,
+    //   }}>
+    //   <BottomTab.Screen
+    //     name="TabOne"
+    //     component={TabOneScreen}
+    //     options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+    //       title: 'Tab One',
+    //       tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+    //     })}
+    //   />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
@@ -78,7 +79,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+    // </BottomTab.Navigator>
   );
 }
 
