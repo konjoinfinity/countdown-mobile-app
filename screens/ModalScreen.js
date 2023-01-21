@@ -43,7 +43,7 @@ export default function ModalScreen({navigation}) {
       });
       return unsubscribe;
   }, [navigation])
-  
+
   const startCountdown = async() => {
     try {
       if (name !== "") {
@@ -81,6 +81,7 @@ export default function ModalScreen({navigation}) {
                 value={name}
                 onChangeText={title => setName(title)}
                 blurOnSubmit={false}
+                maxLength={15}
               />
                <DateTimePicker
                style={{height:Dimensions.get("window").height * 0.15}}

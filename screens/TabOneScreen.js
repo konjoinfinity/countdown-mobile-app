@@ -75,15 +75,15 @@ export default function TabOneScreen({ navigation, route }) {
       }
 
       const deleteTimer = async() => {
+        console.log(timers)
         try {
-          var filtered = timers.filter(function(timer, id) { return id !== id}); 
+          var filtered = timers.filter(function(timer) { return timer.name !== name}); 
           setName('')
           setDate('')
           setId('')
           setTimers(filtered);
           console.log(filtered)
-          console.log(timers)
-          // await AsyncStorage.setItem(logskey, JSON.stringify(filtered), () => {navigation.navigate("TabThree")});
+          await AsyncStorage.setItem(timerskey, JSON.stringify(filtered), () => {navigation.navigate("Root")});
         } catch (error) {
           console.log(error);
     
@@ -109,7 +109,7 @@ export default function TabOneScreen({ navigation, route }) {
 
           
           
-      <Text style={{color:"#e2e4f7", fontSize: 30}}>{name}</Text>
+      <Text style={{color:"#e2e4f7", fontSize: 28}}>{name}</Text>
       <View style={{height: Dimensions.get("window").height * 0.22}}/>
       <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 15, paddingRight: 15, paddingBottom: 15, marginTop: 10}}>
       <CountDown
@@ -139,7 +139,9 @@ export default function TabOneScreen({ navigation, route }) {
                 <Text style={{color:'#d42c75', fontSize: 22, fontWeight: "500", paddingLeft: 25, letterSpacing: 1, paddingRight: 25}}>PAUSE</Text>
                 </LinearGradient>
               </TouchableOpacity>
-              <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:15}} onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); deleteTimer()}}><MIcon name='delete' size={32} color={"#e2e4f7"}/></TouchableOpacity> 
+              <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:15}} 
+              onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); deleteTimer()}}><MIcon name='delete' size={32} color={"#e2e4f7"}/>
+              </TouchableOpacity> 
       </View>
       </View>
   );
