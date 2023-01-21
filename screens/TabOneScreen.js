@@ -70,7 +70,10 @@ export default function TabOneScreen({ navigation, route }) {
     function Tick({x, y, deg, hex}){
       return (
         <View style={{borderRadius: 5, left: x, top: y, position:'absolute',
-            height: 6, width: 60, transform: [{rotate: `${deg}deg`}], backgroundColor: hex}} />
+            height: 6, width: 60, transform: [{rotate: `${deg}deg`}], backgroundColor: hex, shadowColor: "#555a74", 
+            shadowOffset: { height: 1.2, width: 1.2 }, 
+            shadowOpacity: 1, 
+            shadowRadius: 1, }} />
           )
       }
 
@@ -126,9 +129,9 @@ export default function TabOneScreen({ navigation, route }) {
       <TouchableOpacity
               style={{
               margin:15,
-              shadowColor: colorScheme == "dark" ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.4)', 
-              shadowOffset: { height: 0.5, width: 0.5 }, 
-              shadowOpacity: 0.6, 
+              shadowColor: "#555a74", 
+              shadowOffset: { height: 1.5, width: 1.5 }, 
+              shadowOpacity: 1, 
               shadowRadius: 1, 
               elevation: 8, 
               justifyContent: 'center',

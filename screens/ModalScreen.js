@@ -76,7 +76,7 @@ export default function ModalScreen({navigation}) {
     <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={[styles.container, {backgroundColor: '#555a74'}]} automaticallyAdjustKeyboardInsets={true}>
      <TextInput
       ref={nameinput}
-      style={{textAlign: "center", width: Dimensions.get("window").width * 0.9,color: colors.text, fontSize: 25}}
+      style={{textAlign: "center", width: Dimensions.get("window").width * 0.9,color: colors.text, fontSize: 25, paddingTop:15}}
                 placeholder="Title"
                 value={name}
                 onChangeText={title => setName(title)}
@@ -93,14 +93,14 @@ export default function ModalScreen({navigation}) {
         <DateTimePicker
         style={{height:Dimensions.get("window").height * 0.15}}
                mode="time"
-               minuteInterval={1}
+               minuteInterval={15}
           display='spinner'
           value={date}
           minimumDate={new Date()}
           onChange={onDateChange}/>
     <TouchableOpacity
               style={{
-              shadowColor: colorScheme == "dark" ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.4)', 
+                shadowColor: "#555a74",
               shadowOffset: { height: 0.5, width: 0.5 }, 
               shadowOpacity: 0.6, 
               shadowRadius: 1, 
