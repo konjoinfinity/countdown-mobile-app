@@ -93,7 +93,7 @@ export default function ModalScreen({navigation}) {
         <DateTimePicker
         style={{height:Dimensions.get("window").height * 0.15}}
                mode="time"
-               minuteInterval={15}
+               minuteInterval={1}
           display='spinner'
           value={date}
           // minimumDate={new Date()}
