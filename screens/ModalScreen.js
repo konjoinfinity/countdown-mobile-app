@@ -45,28 +45,14 @@ export default function ModalScreen({navigation}) {
 
   const startCountdown = async() => {
     try {
-      if (name !== "") {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: name, date: new Date(date).toLocaleString(), dateCreated: new Date().toLocaleString() });
-        // add dateCreated property, to use for calculating percentage complete
+        newCountdown.unshift({ name: name !== "" ? name : "Untitled", date: new Date(date).toLocaleString(), dateCreated: new Date().toLocaleString() });
         setName("")
         setDate(new Date())
         setTimers(newCountdown)
         navigation.navigate("Root")
-        console.log(newCountdown)
         await AsyncStorage.setItem(timerskey, JSON.stringify(newCountdown));
-      } else {
-        Haptics.selectionAsync()
-        Alert.alert(
-          "Please add a title.", "",[{
-              text: "Ok",
-              onPress: () =>
-              Haptics.selectionAsync()
-            }],
-          { cancelable: false }
-        );
-      }
     } catch (error) {
       console.log(error);
     }

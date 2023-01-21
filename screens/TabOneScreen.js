@@ -8,12 +8,12 @@ import CountDown from 'react-native-countdown-component';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const wheel = [{deg: 0, hex: '#f7876b'}, {deg: 9, hex: '#f7876b'}, {deg: 18, hex: '#f5826b'}, {deg: 27, hex: '#f5826b'}, {deg: 36, hex: '#f47e6c'}, {deg: 45, hex: '#f47e6c'}, 
-{deg: 54, hex: '#f2796c'}, {deg: 63, hex: '#f2796c'}, {deg: 72, hex: '#f0756d'}, {deg: 81, hex: '#f0756d'}, {deg: 90, hex: '#ee706e'}, {deg: 99, hex: '#ee706e'}, {deg: 108, hex: '#ec6c6e'}, {deg: 117, hex: '#ec6c6e'},
-{deg: 126, hex: '#eb676e'}, {deg: 135, hex: '#eb676e'}, {deg: 144, hex: '#e9636f'}, {deg: 153, hex: '#e9636f'}, {deg: 162, hex: '#e75e70'}, {deg: 171, hex: '#e75e70'}, {deg: 180, hex: '#e65a70'}, {deg: 189, hex: '#e65a70'},
-{deg: 198, hex: '#e45570'},{deg: 207, hex: '#e45570'},{deg: 216, hex: '#e25071'},{deg: 225, hex: '#e25071'},{deg: 234, hex: '#e04c72'},{deg: 243, hex: '#e04c72'},{deg: 252, hex: '#de4772'},{deg: 261, hex: '#de4772'},
-{deg: 270, hex: '#dd4372'},{deg: 279, hex: '#dd4372'},{deg: 288, hex: '#db3e73'},{deg: 297, hex: '#db3e73'},{deg: 306, hex: '#d93a74'},{deg: 315, hex: '#d93a74'},{deg: 324, hex: '#d83574'},{deg: 333, hex: '#d83574'},
-{deg: 342, hex: '#d63174'},{deg: 351, hex: '#d63174'}];
+const wheel = [{deg: 270, hex: '#d63174'}, {deg: 279, hex: '#d63174'}, {deg: 288, hex: '#d83574'}, {deg: 297, hex: '#d83574'}, {deg: 306, hex: '#d93a74'}, {deg: 315, hex: '#d93a74'}, {deg: 324, hex: '#db3e73'}, {deg: 333, hex: '#db3e73'}, 
+{deg: 342, hex: '#dd4372'}, {deg: 351, hex: '#dd4372'}, {deg: 0, hex: '#de4772'}, {deg: 9, hex: '#de4772'}, {deg: 18, hex: '#e04c72'}, {deg: 27, hex: '#e04c72'},
+{deg: 36, hex: '#e25071'}, {deg: 45, hex: '#e25071'}, {deg: 54, hex: '#e45570'}, {deg: 63, hex: '#e45570'}, {deg: 72, hex: '#e65a70'}, {deg: 81, hex: '#e65a70'}, {deg: 90, hex: '#e75e70'}, {deg: 99, hex: '#e75e70'},
+{deg: 108, hex: '#e9636f'},{deg: 117, hex:'#e9636f'},{deg: 126, hex: '#eb676e'},{deg: 135, hex: '#eb676e'},{deg: 144, hex: '#ec6c6e'},{deg: 153, hex: '#ec6c6e'},{deg: 162, hex: '#ee706e'},{deg: 171, hex: '#ee706e'},
+{deg: 180, hex: '#f0756d'},{deg: 189, hex: '#f0756d'},{deg: 198, hex: '#f2796c'},{deg: 207, hex: '#f2796c'},{deg: 216, hex: '#f47e6c'},{deg: 225, hex: '#f47e6c'},{deg: 234, hex: '#f5826b'},{deg: 243, hex: '#f5826b'},
+{deg: 252, hex: '#f7876b'},{deg: 251, hex: '#f7876b'}];
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 
@@ -26,7 +26,6 @@ let direction = true;
 
 
 export default function TabOneScreen({ navigation, route }) {
-  console.log(route.params.dateCreated)
   let totalsecs = (new Date(route.params.date).getTime() - new Date().getTime()) / 1000
   const { colors } = useTheme();
   let colorScheme = useColorScheme();
@@ -52,13 +51,8 @@ export default function TabOneScreen({ navigation, route }) {
   let timeElapsed = currentDate.getTime() - createdDate.getTime()
   let totalTime = futureDate.getTime() - createdDate.getTime()
   let percentComplete = timeElapsed / totalTime
-  console.log(percentComplete)
-  console.log(wheel.length)
-  console.log(Math.round(percentComplete * wheel.length))
   let wheelPercent = Math.round(percentComplete * wheel.length)
-  console.log(wheel.length - wheelPercent)
   let newWheelPerc = wheel.length - wheelPercent
-  console.log(wheel.slice(0, newWheelPerc));
     setDegrees(wheel.slice(0, newWheelPerc))
       }
   
@@ -141,7 +135,7 @@ export default function TabOneScreen({ navigation, route }) {
         size={25}
         onChange={() => getWheel()}
         running={count}
-        onFinish={() => console.log(totalsecs)}
+        onFinish={() => setDegrees([])}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>
