@@ -48,11 +48,13 @@ export default function ModalScreen({navigation}) {
       if (name !== "") {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: name, date: new Date(date).toLocaleString() });
+        newCountdown.unshift({ name: name, date: new Date(date).toLocaleString(), dateCreated: new Date().toLocaleString() });
+        // add dateCreated property, to use for calculating percentage complete
         setName("")
         setDate(new Date())
         setTimers(newCountdown)
         navigation.navigate("Root")
+        console.log(newCountdown)
         await AsyncStorage.setItem(timerskey, JSON.stringify(newCountdown));
       } else {
         Haptics.selectionAsync()
@@ -86,7 +88,7 @@ export default function ModalScreen({navigation}) {
                mode="date"
           display='spinner'
           value={date}
-          minimumDate={new Date()}
+          // minimumDate={new Date()}
           onChange={onDateChange}/>
         <DateTimePicker
         style={{height:Dimensions.get("window").height * 0.15}}
@@ -94,7 +96,7 @@ export default function ModalScreen({navigation}) {
                minuteInterval={15}
           display='spinner'
           value={date}
-          minimumDate={new Date()}
+          // minimumDate={new Date()}
           onChange={onDateChange}/>
     <TouchableOpacity
               style={{

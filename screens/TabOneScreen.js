@@ -19,14 +19,33 @@ let direction = true;
 
 
 export default function TabOneScreen({ navigation, route }) {
+  console.log(route.params.dateCreated)
   const { colors } = useTheme();
   let colorScheme = useColorScheme();
   const [name, setName] = useState(route.params.name)
   const [date, setDate] = useState(new Date(route.params.date))
+  const [dateCreated, setDateCreated] = useState(new Date(route.params.dateCreated))
   const [id, setId] = useState(route.params.id)
   const [timers, setTimers] = useState([])
   const [count, setCount] = useState(false)
   let totalsecs = (new Date(route.params.date).getTime() - new Date().getTime()) / 1000;
+  // let percentComplete = 
+  
+
+  // % = timeElasped / totalTime
+  
+  //  timeElapsed = currentDate.getTime() - dateCreated.getTime()
+
+  //  totalTime = futureDate.getTime() - dateCreated.getTime()
+
+  //  percentComplete = timeElapsed / totalTime
+  
+  // currentDate (now) - new Date().getTime()
+  // dateCreated       - new Date(route.params.dateCreated).getTime() 
+  // futureDate (date) - new Date(route.params.date).getTime()
+
+
+
   const [degrees, setDegrees] = useState([{deg: 0, hex: '#f7876b'}, {deg: 9, hex: '#f7876b'}, {deg: 18, hex: '#f5826b'}, {deg: 27, hex: '#f5826b'}, {deg: 36, hex: '#f47e6c'}, {deg: 45, hex: '#f47e6c'}, 
    {deg: 54, hex: '#f2796c'}, {deg: 63, hex: '#f2796c'}, {deg: 72, hex: '#f0756d'}, {deg: 81, hex: '#f0756d'}, {deg: 90, hex: '#ee706e'}, {deg: 99, hex: '#ee706e'}, {deg: 108, hex: '#ec6c6e'}, {deg: 117, hex: '#ec6c6e'},
    {deg: 126, hex: '#eb676e'}, {deg: 135, hex: '#eb676e'}, {deg: 144, hex: '#e9636f'}, {deg: 153, hex: '#e9636f'}, {deg: 162, hex: '#e75e70'}, {deg: 171, hex: '#e75e70'}, {deg: 180, hex: '#e65a70'}, {deg: 189, hex: '#e65a70'},

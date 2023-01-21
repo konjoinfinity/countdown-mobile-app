@@ -56,7 +56,7 @@ export default function App({navigation}) {
     var totalsecs = (new Date(tile.date).getTime() - new Date().getTime()) / 1000;
     return(
 <TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, 
-width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabOne", {name: tile.name, date: tile.date, id: id})}}>
+width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabOne", {name: tile.name, date: tile.date, id: id, dateCreated: tile.dateCreated})}}>
   <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.45 }}>
       <Text style={{color: "#e2e4f7", textAlign: "center", padding: 15}}>{new Date(tile.date).toDateString()}</Text>
       <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20, paddingBottom: 10}}>
