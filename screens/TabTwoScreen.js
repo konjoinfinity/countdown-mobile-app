@@ -8,6 +8,7 @@ import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Card, CardElement } from '@ui-kitten/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CountDown from 'react-native-countdown-component';
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 
@@ -83,9 +84,12 @@ function getXY(deg){
     }
 
   function Tile({tile}){
+    var totalsecs = (new Date(tile.date).getTime() - new Date().getTime()) / 1000;
+   
     return(
-<Card style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.65, width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
-  {degrees && degrees.map((deg, id) => { 
+<TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.65, 
+width: Dimensions.get('window').width * 0.45, marginTop: 10}}>
+  {/* {degrees && degrees.map((deg, id) => { 
   let xandy = getXY(deg.deg)
   return <AnimatableView
       key={id}
@@ -96,12 +100,25 @@ function getXY(deg){
       onAnimationEnd={() => endAnim(id)}>
      <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
       </AnimatableView>
-      })}
+      })} */}
+      <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20}}>
+      <CountDown
+        digitTxtStyle={{color: "#e2e4f7"}}
+        timeLabelStyle={{color: "#e2e4f7"}}
+        until={totalsecs}
+        // new Date(tile.date).getSeconds() - new Date().getSeconds()
+        onFinish={() => console.log('finished')}
+        onPress={() => console.log('hello')}
+        size={15}
+        digitStyle={{backgroundColor: "transparent"}}
+      />
+      </View>
       <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: "column"}}>
       <Text style={{color: "white"}}>{tile.name}</Text>
       <Text style={{color: "white"}}>{tile.date}</Text>
       </View>
-      </Card>
+      </TouchableOpacity>
+
     )
   }
 
