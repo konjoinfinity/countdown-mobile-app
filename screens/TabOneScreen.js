@@ -1,10 +1,10 @@
-import { ScrollView, TouchableOpacity, Text, useColorScheme, Dimensions, View } from 'react-native';
+import { ScrollView, TouchableOpacity, Text, useColorScheme, Dimensions, View, Alert } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient'
-import CountDown from 'react-native-countdown-component';
+import CountDown from '../components/index';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -53,7 +53,7 @@ export default function TabOneScreen({ navigation, route }) {
   let percentComplete = timeElapsed / totalTime
   let wheelPercent = Math.round(percentComplete * wheel.length)
   let newWheelPerc = wheel.length - wheelPercent
-    setDegrees(wheel.slice(0, newWheelPerc))
+    degrees.length == 0 ? "Done" : setDegrees(wheel.slice(0, newWheelPerc))
       }
   
       const getTimers = async() => {
@@ -135,7 +135,7 @@ export default function TabOneScreen({ navigation, route }) {
         size={25}
         onChange={() => getWheel()}
         running={count}
-        onFinish={() => setDegrees([])}
+        onFinish={() => Alert.alert("Time's up!")}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>

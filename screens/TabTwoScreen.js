@@ -8,7 +8,7 @@ import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Card, CardElement } from '@ui-kitten/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CountDown from 'react-native-countdown-component';
+import CountDown from '../components/index';
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 
@@ -78,12 +78,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
 
     return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
       <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 75, backgroundColor: "#33364f", flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
-      {/* <AnimatableView
-      animation={"bounceInUp"}
-
-      duration={2500}
-      style={{  }}
-      useNativeDriver={true}> */}
          {timers && timers.length > 0 ? timers.map((tile, id) => { 
     return <Tile key={id} tile={tile} id={id} />
          }) : (
@@ -92,7 +86,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
           <Text style={{color: "#e2e4f7", fontSize:20, textAlign: "center"}}>Tap + to add one</Text>
           </View>
          )}
-         {/* </AnimatableView> */}
       </ScrollView>
       
       <TouchableOpacity
