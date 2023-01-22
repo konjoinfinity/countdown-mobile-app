@@ -80,13 +80,6 @@ export default function App({navigation}) {
       await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers));
       getHistory()
       getTimers()
-      //
-      // Add historical button to screen - Add new screen for historical list of expired timers
-      // 
-      // On expire - onFinish={() => {}} - Add timer to history
-      // remove timer from timers
-      // Re-render new list of timers
-      // 
      } catch(e) {
       console.log(e)
      }
