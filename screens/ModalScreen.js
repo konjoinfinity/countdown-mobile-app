@@ -47,7 +47,7 @@ export default function ModalScreen({navigation}) {
     try {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: name !== "" ? name : "Untitled", date: new Date(date).toLocaleString(), dateCreated: new Date().toLocaleString() });
+        newCountdown.unshift({ name: name !== "" ? name : "Untitled", date: new Date(date).toLocaleString(), dateCreated: new Date().toLocaleString(), color: "#3e415b" });
         setName("")
         setDate(new Date())
         setTimers(newCountdown)
@@ -67,7 +67,7 @@ export default function ModalScreen({navigation}) {
                 value={name}
                 onChangeText={title => setName(title)}
                 blurOnSubmit={false}
-                maxLength={15}
+                maxLength={20}
               />
                <DateTimePicker
                style={{height:Dimensions.get("window").height * 0.15}}

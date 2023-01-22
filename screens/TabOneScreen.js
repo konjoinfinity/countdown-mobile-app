@@ -80,10 +80,10 @@ export default function App({navigation}) {
     var totalsecs = (new Date(tile.date).getTime() - new Date().getTime()) / 1000;
     return(
 <TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, 
-width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabTwo", {name: tile.name, date: tile.date, id: id, dateCreated: tile.dateCreated})}}>
+width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} 
+onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabTwo", {name: tile.name, date: tile.date, id: id, dateCreated: tile.dateCreated, color: tile.color})}}>
   <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.45 }}>
-      <Text style={{color: "#e2e4f7", textAlign: "center", padding: 15}}>{new Date(tile.date).toLocaleDateString()}</Text>
-      <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20, paddingBottom: 10}}>
+      <View style={{backgroundColor: tile.color, opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20, paddingBottom: 10}}>
       <CountDown
         digitTxtStyle={{color: "#e2e4f7"}}
         timeLabelStyle={{color: "#e2e4f7", marginTop: -5}}
@@ -93,7 +93,7 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
       <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: "column"}}>
-      <Text style={{color: "#e2e4f7", paddingTop: 15, fontSize: 18, fontWeight: "500"}}>{tile.name}</Text>
+      <Text style={{color: "#e2e4f7", fontSize: 18, fontWeight: "500", textAlign: "center", marginTop: Dimensions.get('window').width * 0.1, paddingLeft: 5, paddingRight: 5}}>{tile.name}</Text>
       </View>
       </LinearGradient>
       </TouchableOpacity>
@@ -101,7 +101,8 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
   }
 
     return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
-      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 100, backgroundColor: "#33364f", flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
+      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 100, backgroundColor: "#33364f", flexDirection:"row", flexWrap:"wrap", 
+      justifyContent:"space-evenly", alignItems: 'center' }}>
          {timers && timers.length > 0 ? timers.map((tile, id) => { 
     return <Tile key={id} tile={tile} id={id} />
          }) : (
@@ -115,7 +116,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
       <TouchableOpacity style={{ borderRadius: 50, padding: 15, margin:15, position: 'absolute', top: 30, right: 10}} 
               onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabThree")}}><MIcon name='history' size={32} color={"#e2e4f7"}/>
               </TouchableOpacity> 
-
       <TouchableOpacity
               style={{position: 'absolute',
               bottom: 80,
@@ -135,7 +135,6 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
                 <MIcon color={'#fff'} name="add" style={{padding: 10 }} size={70} />
                 </LinearGradient>
               </TouchableOpacity>
-              
       </View>
     );
 } 

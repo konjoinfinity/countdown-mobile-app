@@ -1,6 +1,7 @@
 import { ScrollView, TouchableOpacity, Text, useColorScheme, Dimensions, View, Alert } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MIcon from "@expo/vector-icons/MaterialIcons";
+import { AntDesign } from '@expo/vector-icons'
 import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient'
@@ -18,12 +19,19 @@ const wheel = [{deg: 270, hex: '#d63174'}, {deg: 279, hex: '#d63174'}, {deg: 288
 AnimatableView = Animatable.createAnimatableComponent(View);
 
 const timerskey = "timers";
-const size = 280;
-const symbolSize = 280;
+const size = Dimensions.get("window").width * 0.75
+const symbolSize = Dimensions.get("window").width * 0.75
 const radius = size / 2;
 const center = radius;
 let direction = true;
-
+const PALETTE = [
+	"#3e415b",
+	'#9c9fb6',
+	'#F7876B',
+	'#E75C70',
+	'#D63174',
+	'#812E5F'
+]
 
 export default function TabOneScreen({ navigation, route }) {
   let totalsecs = (new Date(route.params.date).getTime() - new Date().getTime()) / 1000
@@ -32,10 +40,13 @@ export default function TabOneScreen({ navigation, route }) {
   const [name, setName] = useState(route.params.name)
   const [date, setDate] = useState(new Date(route.params.date))
   const [dateCreated, setDateCreated] = useState(new Date(route.params.dateCreated))
+  const [cardColor, setCardColor] = useState(route.params.color) //route.params.color
   const [id, setId] = useState(route.params.id)
   const [timers, setTimers] = useState([])
   const [count, setCount] = useState(false)
   const [degrees, setDegrees] = useState(wheel)
+  
+  const [colorSetting, setColorSetting] = useState(false)
 
    function getXY(deg){
     let angleRad = deg * Math.PI / 180;
@@ -106,14 +117,43 @@ export default function TabOneScreen({ navigation, route }) {
           await AsyncStorage.setItem(timerskey, JSON.stringify(filtered), () => {navigation.navigate("Root")});
         } catch (error) {
           console.log(error);
-    
+        }
+      }
+
+      const editTimerColor = async(color) => {
+        try {
+          setCardColor(color)
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          var editColor = timers;
+          editColor[id] = { name: name, date: date, dateCreated:  dateCreated, color: color };
+          setTimers(editColor)
+          await AsyncStorage.setItem(timerskey, JSON.stringify(editColor));
+        } catch (error) {
+          console.log(error);
         }
       }
 
   return (
     <View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f", flex: 1, justifyContent:"center", alignItems: "center"}}>
-      <Text style={{color:"#e2e4f7", fontSize: 30}}>{new Date(date).toLocaleDateString()}</Text>
-      <View style={{height: Dimensions.get("window").height * 0.22}}/>
+      <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5, paddingTop: 10}}>TIMER</Text>
+      <TouchableOpacity style={{position:'absolute', top: Dimensions.get("window").height * 0.0725, right: Dimensions.get("window").width * 0.08, padding: 15}} 
+              onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}><AntDesign name="setting" size={28} color={"#e2e4f7"}/>
+              </TouchableOpacity> 
+
+              {colorSetting === true && <View style={{display: 'flex', alignItems: "center", justifyContent:'space-evenly', flexWrap: "wrap",position: 'absolute',
+          top: Dimensions.get("window").width * 0.33,right: 0,backgroundColor: '#2E3048', borderRadius: 5,shadowColor:"#555a74", 
+          shadowOffset: { height: 1.5, width: 1.5 }, 
+          shadowOpacity: 1, 
+          shadowRadius: 1, 
+          elevation: 8, padding: 22, zIndex:1 }}> 
+          {PALETTE.map((color, id) => {
+            return <TouchableOpacity key={id} onPress={() => editTimerColor(color)} style={{backgroundColor:color, 
+            width: Dimensions.get("window").width * 0.16,height: Dimensions.get("window").width * 0.16,borderRadius: 50,margin: 5}}>
+            </TouchableOpacity>
+          })}
+        </View>}
+
+      <View style={{height: Dimensions.get("window").height * 0.25}}/>
        {degrees && degrees.map((deg, id) => { 
   let xandy = getXY(deg.deg)
   return <AnimatableView
@@ -125,9 +165,13 @@ export default function TabOneScreen({ navigation, route }) {
      <Tick x={xandy.x} y={xandy.y} deg={deg.deg} hex={deg.hex} />
       </AnimatableView>
       })}
-      <Text style={{color:"#e2e4f7", fontSize: 28}}>{name}</Text>
-      <View style={{height: Dimensions.get("window").height * 0.22}}/>
-      <View style={{backgroundColor: "#3e415b", opacity: 0.8, alignSelf:"stretch", paddingLeft: 15, paddingRight: 15, paddingBottom: 15, marginTop: 10}}>
+      <View style={{ height: Dimensions.get("window").height * 0.22, width: Dimensions.get("window").height * 0.22, borderRadius: 100, 
+      position: 'absolute', justifyContent: 'center', alignItems: "center", bottom: Dimensions.get("window").height * 0.485, opacity: 0.8}}>
+      <Text style={{color:"#e2e4f7", textAlign: 'center', fontSize: 28}}>{name}</Text>
+      <Text style={{color:"#e2e4f7", fontSize: 18, textAlign: 'center'}}>{new Date(date).toLocaleDateString()}</Text>
+      </View>
+      <View style={{height: Dimensions.get("window").height * 0.25}}/>
+      <View style={{backgroundColor: cardColor, opacity: 0.8, alignSelf:"stretch", paddingLeft: 15, paddingRight: 15, paddingBottom: 15, marginTop: 10}}>
       <CountDown
         digitTxtStyle={{color: "#e2e4f7"}}
         timeLabelStyle={{color: "#e2e4f7"}}
@@ -135,16 +179,16 @@ export default function TabOneScreen({ navigation, route }) {
         size={25}
         onChange={() => getWheel()}
         running={count}
-        onFinish={() => Alert.alert("Time's up!")}
+        onFinish={() => {Alert.alert("Time's up!"); navigation.navigate("Root")}}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>
-      <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:15}} 
+      <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
       onPress={() => {Haptics.selectionAsync(); navigation.navigate('Root')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
       </TouchableOpacity>
       <TouchableOpacity
               style={{
-              margin:15,
+              margin:10,
               shadowColor: "#555a74", 
               shadowOffset: { height: 1.5, width: 1.5 }, 
               shadowOpacity: 1, 
@@ -155,10 +199,10 @@ export default function TabOneScreen({ navigation, route }) {
               flexDirection: 'row'}}
                 onPress={() => {Haptics.selectionAsync(); console.log("Edit Countdown")}}>
                   <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#e2e4f7", '#fff']} style={{borderRadius: 50, padding: 20 }}>
-                <Text style={{color:'#d42c75', fontSize: 22, fontWeight: "500", paddingLeft: 25, letterSpacing: 1, paddingRight: 25}}>PAUSE</Text>
+                <Text style={{color:'#d42c75', fontSize: 22, fontWeight: "700", paddingLeft: 25, letterSpacing: 2, paddingRight: 25}}>PAUSE</Text>
                 </LinearGradient>
               </TouchableOpacity>
-              <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:15}} 
+              <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
               onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); deleteTimer()}}><MIcon name='delete' size={32} color={"#e2e4f7"}/>
               </TouchableOpacity> 
       </View>
