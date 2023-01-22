@@ -2,7 +2,6 @@ import { Dimensions, StyleSheet, TouchableOpacity, useColorScheme, ScrollView, T
 import { Text } from '../components/Themed';
 import React, {useState, useRef, useEffect} from 'react';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Input } from '@ui-kitten/components';
 import { useTheme } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';

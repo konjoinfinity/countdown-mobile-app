@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, TouchableOpacity, useColorScheme, Text, Animated, Dimensions, ScrollView } from 'react-native';
-import { RadialGradient } from 'react-native-gradients';
 import { useTheme } from '@react-navigation/native';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import * as Animatable from 'react-native-animatable';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Card, CardElement } from '@ui-kitten/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CountDown from '../components/index';
 
