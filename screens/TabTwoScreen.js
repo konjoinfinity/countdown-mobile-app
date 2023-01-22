@@ -13,6 +13,7 @@ import CountDown from '../components/index';
 AnimatableView = Animatable.createAnimatableComponent(View);
 
 const timerskey = "timers";
+const historykey = "history"
 const size = 100 ;
 const symbolSize = 16;
 const radius = size / 2;
@@ -31,11 +32,13 @@ export default function App({navigation}) {
   const { colors } = useTheme();
   const [clock, setClock] = useState(false)
   const [counter, setCounter] = useState(30)
-    const [timers, setTimers] = useState([])
+  const [timers, setTimers] = useState([])
+  const [history, setHistory] = useState([])
 
     useEffect(() => {
       const unsubscribe = navigation.addListener('focus', () => {
         getTimers();
+        getHistory();
         });
         return unsubscribe;
     }, [navigation])
@@ -52,6 +55,46 @@ export default function App({navigation}) {
       }
     }
 
+    const getHistory = async() => {
+      try {
+        await AsyncStorage.getItem(historykey, (error, result) => {
+          result !== null && result !== "[]"
+            ? setHistory(JSON.parse(result))
+            : setHistory([]);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function timerExpired(id){
+     console.log(id)
+      try{
+      var newHistory = history;
+      var newTimers = timers;
+      newHistory.unshift(timers[id]);
+      console.log(newHistory)
+      setHistory(newHistory);
+      await AsyncStorage.setItem(historykey, JSON.stringify(newHistory));
+      newTimers.splice(id, 1);
+      console.log(newTimers)
+      setTimers(newTimers);
+      await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers));
+      //
+      // Add historical button to screen - Add new screen for historical list of expired timers
+      // 
+      // On expire - onFinish={() => {}} - Add timer to history
+      // remove timer from timers
+      // Re-render new list of timers
+      // 
+     } catch(e) {
+      console.log(e)
+     }
+     console.log(timers)
+     console.log(history)
+    }
+
+
   function Tile({tile, id}){
     var totalsecs = (new Date(tile.date).getTime() - new Date().getTime()) / 1000;
     return(
@@ -64,7 +107,7 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} o
         digitTxtStyle={{color: "#e2e4f7"}}
         timeLabelStyle={{color: "#e2e4f7", marginTop: -5}}
         until={totalsecs}
-        onFinish={() => console.log('finished')}
+        onFinish={() => timerExpired(id)}
         size={15}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
