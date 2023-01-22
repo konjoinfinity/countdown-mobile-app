@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, TouchableOpacity, useColorScheme, Text, Animated, Dimensions, ScrollView } from 'react-native';
-import { RadialGradient } from 'react-native-gradients';
 import { useTheme } from '@react-navigation/native';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import * as Animatable from 'react-native-animatable';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Card, CardElement } from '@ui-kitten/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CountDown from '../components/index';
+import ColorPicker from 'react-native-wheel-color-picker'
 
 AnimatableView = Animatable.createAnimatableComponent(View);
 const historykey = "history"
@@ -39,17 +37,18 @@ export default function App({navigation}) {
 
   function Tile({tile, id}){
     return(
-<View style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.25, 
-width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}}>
-  <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.25 }}>
+<TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.3, 
+width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} onPress={() => {Haptics.selectionAsync(); }}>
+  <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.3 }}>
   <Text style={{color: "#e2e4f7", paddingTop: 15, fontSize: 18, fontWeight: "500", textAlign: "center"}}>{tile.name}</Text>
       <Text style={{color: "#e2e4f7", textAlign: "center", padding: 15}}>{new Date(tile.date).toLocaleDateString()}</Text>
       </LinearGradient>
-      </View>
+      </TouchableOpacity>
     )
   }
 
     return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
+      
       <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 75, backgroundColor: "#33364f", flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
          {history && history.length > 0 ? history.map((tile, id) => { 
     return <Tile key={id} tile={tile} id={id} />
@@ -58,6 +57,20 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}}>
           <Text style={{color: "#e2e4f7", fontSize:40, textAlign: "center"}}>No History</Text>
           </View>
          )}
+         <ColorPicker
+         style={{height: 250, width:250}}
+					// ref={r => { this.picker = r }}
+					// color={currentColor}
+					swatchesOnly={true}
+					// onColorChange={this.onColorChange}
+					// onColorChangeComplete={this.onColorChangeComplete}
+					// thumbSize={50}
+					// sliderSize={40}
+					noSnap={true}
+					row={false}
+					swatches={true}
+					discrete={true}
+				/>
       </ScrollView>
       
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>

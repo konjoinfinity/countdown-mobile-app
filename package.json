@@ -42,6 +42,7 @@
     "react-native-screens": "~3.18.0",
     "react-native-svg": "^13.7.0",
     "react-native-web": "~0.18.9",
+    "react-native-wheel-color-picker": "^1.2.0",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
