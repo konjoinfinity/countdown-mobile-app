@@ -108,12 +108,13 @@ export default function TabOneScreen({ navigation, route }) {
 
       const deleteTimer = async() => {
         try {
-          var filtered = timers.filter(function(timer) { return timer.name !== name}); 
+          let newTimers = timers
+          newTimers.splice(id, 1); 
           setName('')
           setDate('')
           setId('')
-          setTimers(filtered);
-          await AsyncStorage.setItem(timerskey, JSON.stringify(filtered), () => {navigation.navigate("Root")});
+          setTimers(newTimers);
+          await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers), () => {navigation.navigate("Root")});
         } catch (error) {
           console.log(error);
         }

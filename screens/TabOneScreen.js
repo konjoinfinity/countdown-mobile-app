@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, useColorScheme, Text, Animated, Dimensions, ScrollView } from 'react-native';
+import { View, TouchableOpacity, useColorScheme, Text, Animated, Dimensions, ScrollView, Alert } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import * as Animatable from 'react-native-animatable';
@@ -52,23 +52,19 @@ export default function App({navigation}) {
     }
 
     async function timerExpired(id){
-     console.log(id)
       try{
+      Alert.alert("Time's up!")
       var newHistory = history;
       var newTimers = timers;
       newHistory.unshift(timers[id]);
-      console.log(newHistory)
       await AsyncStorage.setItem(historykey, JSON.stringify(newHistory));
       newTimers.splice(id, 1);
-      console.log(newTimers)
       await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers));
       getHistory()
       getTimers()
      } catch(e) {
       console.log(e)
      }
-     console.log(timers)
-     console.log(history)
     }
 
 

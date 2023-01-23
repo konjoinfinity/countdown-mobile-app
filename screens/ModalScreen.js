@@ -68,6 +68,7 @@ export default function ModalScreen({navigation}) {
 
   return (
     <ScrollView contentContainerStyle={[styles.container, {backgroundColor: '#33364f'}]}>
+      <View style={{height: Dimensions.get("window").height * 0.1, width: Dimensions.get("window").width * 1 ,backgroundColor: cardColor, position: 'absolute', top:0}}></View>
       <View style={{ justifyContent:'space-around', alignItems: 'center', flexDirection: 'row'}}>
       <TouchableOpacity disabled={true}>
         <AntDesign name="setting" size={28} color={"#33364f"}/>
@@ -78,7 +79,7 @@ export default function ModalScreen({navigation}) {
               </TouchableOpacity> 
               </View>
               {colorSetting === true && <View style={{display: 'flex', alignItems: "center", justifyContent:'space-evenly', flexWrap: "wrap", position: 'absolute', flexDirection: 'row',
-          top: Dimensions.get("window").width * 0.33,right: 0,backgroundColor: '#2E3048', borderRadius: 5, shadowColor:"#555a74", width: Dimensions.get("window").width * 1,
+          top: Dimensions.get("window").height * 0.2,right: 0,backgroundColor: '#2E3048', borderRadius: 5, shadowColor:"#555a74", width: Dimensions.get("window").width * 1,
           shadowOffset: { height: 1.5, width: 1.5 }, 
           shadowOpacity: 1, 
           shadowRadius: 1, 
