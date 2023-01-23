@@ -16,8 +16,6 @@ const historykey = "history"
 export default function App({navigation}) {
   let colorScheme = useColorScheme();
   const { colors } = useTheme();
-  const [clock, setClock] = useState(false)
-  const [counter, setCounter] = useState(30)
   const [timers, setTimers] = useState([])
   const [history, setHistory] = useState([])
 

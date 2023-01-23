@@ -40,12 +40,11 @@ export default function TabOneScreen({ navigation, route }) {
   const [name, setName] = useState(route.params.name)
   const [date, setDate] = useState(new Date(route.params.date))
   const [dateCreated, setDateCreated] = useState(new Date(route.params.dateCreated))
-  const [cardColor, setCardColor] = useState(route.params.color) //route.params.color
+  const [cardColor, setCardColor] = useState(route.params.color)
   const [id, setId] = useState(route.params.id)
   const [timers, setTimers] = useState([])
   const [count, setCount] = useState(false)
   const [degrees, setDegrees] = useState(wheel)
-  
   const [colorSetting, setColorSetting] = useState(false)
 
    function getXY(deg){
@@ -140,15 +139,15 @@ export default function TabOneScreen({ navigation, route }) {
               onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}><AntDesign name="setting" size={28} color={"#e2e4f7"}/>
               </TouchableOpacity> 
 
-              {colorSetting === true && <View style={{display: 'flex', alignItems: "center", justifyContent:'space-evenly', flexWrap: "wrap",position: 'absolute',
-          top: Dimensions.get("window").width * 0.33,right: 0,backgroundColor: '#2E3048', borderRadius: 5,shadowColor:"#555a74", 
+              {colorSetting === true && <View style={{display: 'flex', alignItems: "center", justifyContent:'space-evenly', flexWrap: "wrap",position: 'absolute', flexDirection: 'row',
+          top: Dimensions.get("window").width * 0.33,right: 0,backgroundColor: '#2E3048', borderRadius: 5, shadowColor:"#555a74", width: Dimensions.get("window").width * 1,
           shadowOffset: { height: 1.5, width: 1.5 }, 
           shadowOpacity: 1, 
           shadowRadius: 1, 
-          elevation: 8, padding: 22, zIndex:1 }}> 
+          elevation: 8, padding: 10, zIndex:1 }}> 
           {PALETTE.map((color, id) => {
             return <TouchableOpacity key={id} onPress={() => editTimerColor(color)} style={{backgroundColor:color, 
-            width: Dimensions.get("window").width * 0.16,height: Dimensions.get("window").width * 0.16,borderRadius: 50,margin: 5}}>
+            width: Dimensions.get("window").width * 0.12,height: Dimensions.get("window").width * 0.12,borderRadius: 50}}>
             </TouchableOpacity>
           })}
         </View>}

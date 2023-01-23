@@ -43,7 +43,7 @@ function RootNavigator() {
       <Stack.Screen name="TabThree" component={TabThreeScreen} options={{headerShown: false}}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} options={{title: 'Add Countdown', headerStyle: {backgroundColor: '#d42c75'} }}/>
+      <Stack.Screen name="Modal" component={ModalScreen} options={{headerShown: false, presentation: 'fullScreenModal' }}/>
       </Stack.Group>
     </Stack.Navigator>
   );

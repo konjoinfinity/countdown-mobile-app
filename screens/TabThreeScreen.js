@@ -42,16 +42,32 @@ export default function App({navigation}) {
 
   function Tile({tile, id}){
     return(
-<TouchableOpacity style={{ height: Dimensions.get('window').width * 0.3, backgroundColor: tile.color,
-width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5, opacity: 0.7}} onPress={() => {Haptics.selectionAsync(); }}>
-  <Text style={{color: '#fff', paddingTop: 15, fontSize: 18, fontWeight: "500", textAlign: "center"}}>{tile.name}</Text>
-      <Text style={{color: '#fff', textAlign: "center", padding: 15}}>{new Date(tile.date).toLocaleDateString()}</Text>
+<TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, 
+width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5, margin: 5}} 
+onLongPress={() => {Haptics.selectionAsync()}}>
+  <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.45 }}>
+      <View style={{backgroundColor: tile.color, opacity: 0.8, alignSelf:"stretch", height: Dimensions.get('window').width * 0.15, justifyContent: 'center' }}>
+      <Text style={{color: "#e2e4f7", fontSize: 16, fontWeight: "500", textAlign: "center"}}>{new Date(tile.date).toLocaleDateString()}</Text>
+      </View>
+      <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: "column"}}>
+      <Text style={{color: "#e2e4f7", fontSize: 18, fontWeight: "500", textAlign: "center", marginTop: Dimensions.get('window').width * 0.1, paddingLeft: 5, paddingRight: 5}}>{tile.name}</Text>
+      </View>
+      </LinearGradient>
       </TouchableOpacity>
     )
   }
 
-    return (<View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f"}}>
-      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", paddingTop: 75, backgroundColor: "#33364f", 
+    return (<View style={{ backgroundColor: "#33364f" , flex: 1, justifyContent:"center", alignItems: "center"}}>
+      <View style={{ justifyContent:'center', alignItems: 'flex-end', height: Dimensions.get('window').height * 0.15, flexDirection: 'row' }}>
+      <TouchableOpacity style={{ borderRadius: 50, padding: 15, margin:10}} 
+      onPress={() => {Haptics.selectionAsync(); navigation.navigate('Root')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
+      </TouchableOpacity>
+      <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5, paddingLeft: Dimensions.get('window').width * 0.07, 
+      paddingRight: Dimensions.get('window').width * 0.07, padding: 15, margin:10 }}>HISTORY</Text>
+      <TouchableOpacity disabled={true} style={{ borderRadius: 50, padding: 15, opacity: 0.1, margin:10}}><MIcon name='arrow-back' size={32} color={"#33364f"}/>
+      </TouchableOpacity>
+      </View>
+      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", backgroundColor: "#33364f", 
       flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
          {history && history.length > 0 ? history.map((tile, id) => { 
     return <Tile key={id} tile={tile} id={id} />
@@ -60,32 +76,7 @@ width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5, op
           <Text style={{color: "#e2e4f7", fontSize:40, textAlign: "center"}}>No History</Text>
           </View>
          )}
-      </ScrollView>
-      <View style={{alignItems: "center", flexDirection: "row", justifyContent:'center', marginTop: Dimensions.get("window").height * 0.05, marginBottom: Dimensions.get("window").height * 0.05}}>
-      <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
-      onPress={() => {Haptics.selectionAsync(); navigation.navigate('Root')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
-      </TouchableOpacity>
-      <TouchableOpacity
-              style={{
-              margin:10,
-              shadowColor: "#555a74", 
-              shadowOffset: { height: 1.5, width: 1.5 }, 
-              shadowOpacity: 1, 
-              shadowRadius: 1, 
-              elevation: 8, 
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row'}}
-                onPress={() => {Haptics.selectionAsync(); console.log("Edit Countdown")}}>
-                  <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#e2e4f7", '#fff']} style={{borderRadius: 50, padding: 20 }}>
-                <Text style={{color:'#d42c75', fontSize: 22, fontWeight: "700", paddingLeft: 25, letterSpacing: 2, paddingRight: 25}}>PAUSE</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
-              onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); console.log("Delete")}}><MIcon name='delete' size={32} color={"#e2e4f7"}/>
-              </TouchableOpacity> 
-      </View>
-              
+      </ScrollView>     
       </View>
     );
 } 
