@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, TouchableOpacity, ScrollView, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, ScrollView, View, Keyboard } from 'react-native';
 import { Text } from '../components/Themed';
 import React, {useState, useRef, useEffect} from 'react';
 import { LinearGradient } from 'expo-linear-gradient'
@@ -6,7 +6,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Haptics from 'expo-haptics';
 import { AntDesign } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MIcon from "@expo/vector-icons/MaterialIcons";
+import { Input } from '@ui-kitten/components';
 
 const timerskey = "timers";
 const PALETTE = [
@@ -20,6 +22,7 @@ const PALETTE = [
 
 export default function ModalScreen({navigation}) {
   const [date, setDate] = useState(new Date(0, 0, 0, 0, 1, 5));
+  const [name, setName] = useState('Title')
   const [timeToAdd, setTimeToAdd] = useState(new Date().setSeconds(new Date().getSeconds() + 60))
   const [timers, setTimers] = useState([]);
   const [cardColor, setCardColor] = useState("#3e415b")
@@ -57,7 +60,7 @@ export default function ModalScreen({navigation}) {
     try {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: "Timer", date: new Date(datePlusMins).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
+        newCountdown.unshift({ name: name, date: new Date(datePlusMins).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
         setDate(new Date())
         setTimers(newCountdown)
         navigation.navigate("TabOne")
@@ -72,7 +75,7 @@ export default function ModalScreen({navigation}) {
       <View style={{height: Dimensions.get("window").height * 0.1, width: Dimensions.get("window").width * 1 ,backgroundColor: cardColor, position: 'absolute', top:0}}></View>
       <View style={{ justifyContent:'space-around', alignItems: 'center', flexDirection: 'row'}}>
       <TouchableOpacity 
-              onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabThree")}}><MIcon name='history' size={30} color={"#e2e4f7"}/>
+              onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabOne")}}><MIcon name='access-time' size={30} color={"#e2e4f7"}/>
               </TouchableOpacity> 
       <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5}}>TIMER</Text>
       <TouchableOpacity onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}>
@@ -90,6 +93,14 @@ export default function ModalScreen({navigation}) {
             width: Dimensions.get("window").width * 0.12,height: Dimensions.get("window").width * 0.12,borderRadius: 50}}>
             </TouchableOpacity>
           })}
+           <Input textStyle={{textAlign:'center',color: '#e2e4f7', fontSize: 25}} style={{ marginTop: 25,width: Dimensions.get("window").width * 0.9,backgroundColor: '#2E3048'}}
+                placeholder="Title"
+                value={name}
+                onChangeText={title => setName(title)}
+                blurOnSubmit={false}
+                onBlur={()=> Keyboard.dismiss()}
+                status='control'
+                accessoryLeft={()=> <MaterialCommunityIcons name="playlist-edit" size={28} color={"#e2e4f7"}/>}/>
         </View>}
         <DateTimePicker
         style={{height:Dimensions.get("window").height * 0.35}}

@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text, useColorScheme, Dimensions, View, Alert } from 'react-native';
+import { ScrollView, TouchableOpacity, Text, useColorScheme, Dimensions, View, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MIcon from "@expo/vector-icons/MaterialIcons";
 import { AntDesign } from '@expo/vector-icons'
@@ -8,6 +8,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import CountDown from '../components/index';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Input } from '@ui-kitten/components';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const wheel = [{deg: 270, hex: '#d63174'}, {deg: 279, hex: '#d63174'}, {deg: 288, hex: '#d83574'}, {deg: 297, hex: '#d83574'}, {deg: 306, hex: '#d93a74'}, {deg: 315, hex: '#d93a74'}, {deg: 324, hex: '#db3e73'}, {deg: 333, hex: '#db3e73'}, 
 {deg: 342, hex: '#dd4372'}, {deg: 351, hex: '#dd4372'}, {deg: 0, hex: '#de4772'}, {deg: 9, hex: '#de4772'}, {deg: 18, hex: '#e04c72'}, {deg: 27, hex: '#e04c72'},
@@ -134,6 +136,7 @@ export default function TabOneScreen({ navigation, route }) {
       }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f", flex: 1, justifyContent:"center", alignItems: "center"}}>
       <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5, paddingTop: 10}}>TIMER</Text>
       <TouchableOpacity style={{position:'absolute', top: Dimensions.get("window").height * 0.0725, right: Dimensions.get("window").width * 0.08, padding: 15}} 
@@ -151,6 +154,14 @@ export default function TabOneScreen({ navigation, route }) {
             width: Dimensions.get("window").width * 0.12,height: Dimensions.get("window").width * 0.12,borderRadius: 50}}>
             </TouchableOpacity>
           })}
+        <Input textStyle={{textAlign:'center',color: '#e2e4f7', fontSize: 25}} style={{ marginTop: 25,width: Dimensions.get("window").width * 0.9,backgroundColor: '#2E3048'}}
+                placeholder="Title"
+                value={name}
+                onChangeText={title => setName(title)}
+                blurOnSubmit={false}
+                onBlur={()=> Keyboard.dismiss()}
+                status='control'
+                accessoryLeft={()=> <MaterialCommunityIcons name="playlist-edit" size={28} color={"#e2e4f7"}/>}/>
         </View>}
 
       <View style={{height: Dimensions.get("window").height * 0.25}}/>
@@ -184,7 +195,7 @@ export default function TabOneScreen({ navigation, route }) {
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>
       <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
-      onPress={() => {Haptics.selectionAsync(); navigation.navigate('Root')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
+      onPress={() => {Haptics.selectionAsync(); navigation.navigate('TabOne')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
       </TouchableOpacity>
       <TouchableOpacity
               style={{
@@ -207,5 +218,6 @@ export default function TabOneScreen({ navigation, route }) {
               </TouchableOpacity> 
       </View>
       </View>
+      </TouchableWithoutFeedback>
   );
 }
