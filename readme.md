@@ -36,34 +36,61 @@ The UI should include:
 
 For an extra challenge:
 * Allow users to view archives of past events ✅
-* Automatically trigger push notification reminders x days before each event 🟨 **planning**
+* Automatically trigger push notification reminders x days before each event 🟨 (**planning**)
 * Allow users to customize the look and feel of each event (i.e. choose a color scheme, add an emoji, or upload custom background images)✅
-* Create an iOS or Android widget to show countdown timers on the user’s home screen 🟨 **planning**
+* Create an iOS or Android widget to show countdown timers on the user’s home screen 🟨 (**planning**)
 
 ## Installation
 
 `yarn`
 
-## API Reference
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-Describe and show how to run the tests with code examples.
-
-## How to use?
-If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
-
 ## Contribute
 
-Let people know how they can contribute into your project. A [contributing guideline](https://github.com/zulip/zulip-electron/blob/master/CONTRIBUTING.md) will be a big plus.
+If you'd like to contribute, submit a pull request.
 
 ## Credits
-Give proper credits. This could be a link to any repo which inspired you to build this project, any blogposts or links to people who contrbuted in this project. 
 
-#### Anything else that seems useful
+Built using this UI/UX design: https://dribbble.com/shots/7077105-Daily-UI-challenge-014-Countdown-Timer
+
+
+    [@eva-design/eva]
+    [@expo/vector-icons]
+    [@react-native-async-storage/async-storage]
+    [@react-native-community/datetimepicker]
+    [@react-navigation/bottom-tabs]
+    [@react-navigation/native]
+    [@react-navigation/native-stack]
+    [@ui-kitten/components] 
+    [expo] 
+    [expo-asset] 
+    [expo-constants] 
+    [expo-font] 
+    [expo-haptics] 
+    [expo-linear-gradient] 
+    [expo-linking] 
+    [expo-splash-screen] 
+    [expo-status-bar] 
+    [expo-system-ui] 
+    [expo-web-browser] 
+    [less] 
+    [lodash] 
+    [prop-types] 
+    [react] 
+    [react-dom] 
+    [react-native] 
+    [react-native-animatable] 
+    [react-native-elevation] 
+    [react-native-gradients] 
+    [react-native-safe-area-context] 
+    [react-native-screens] 
+    [react-native-svg] 
+    [react-native-web] 
+    [sprintf-js] 
+
+#### Motivation
+
+I wanted the final product as close to the UI/UX design while achieving the app requirements. Planning to release to Apple/Google AppStores.
 
 ## License
-A short snippet describing the license (MIT, Apache etc)
 
-MIT © [Yourname]()
+MIT © [Konjo Tech - Wesley Scholl](2023)
