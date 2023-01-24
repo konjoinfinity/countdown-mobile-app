@@ -25,10 +25,6 @@ export default function ModalScreen({navigation}) {
   const [colorSetting, setColorSetting] = useState(false)
 
   const onDateChange = (event, selectedDate) => {
-    let datePlusMins = new Date().setMinutes(new Date().getMinutes() + new Date(selectedDate).getMinutes())
-    datePlusMins = new Date(datePlusMins).setHours(new Date(datePlusMins).getHours() + new Date(selectedDate).getHours())
-    console.log(new Date(datePlusMins).toLocaleString())
-    setTimeToAdd(datePlusMins)
     const currentDate = selectedDate
     setDate(currentDate);
   };
@@ -53,10 +49,14 @@ export default function ModalScreen({navigation}) {
   }, [navigation])
 
   const startCountdown = async() => {
+    let datePlusMins = new Date().setMinutes(new Date().getMinutes() + new Date(date).getMinutes())
+    datePlusMins = new Date(datePlusMins).setHours(new Date(datePlusMins).getHours() + new Date(date).getHours())
+    console.log(new Date(datePlusMins).toLocaleString())
+    setTimeToAdd(datePlusMins)
     try {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: "Timer", date: new Date(timeToAdd).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
+        newCountdown.unshift({ name: "Timer", date: new Date(datePlusMins).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
         setDate(new Date())
         setTimers(newCountdown)
         navigation.navigate("Root")
