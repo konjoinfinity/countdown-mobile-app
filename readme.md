@@ -9,6 +9,7 @@ I wanted to create this project for practice, to learn, to challenge myself, to 
 
 ## Build status
 
+[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
 [![Build Status](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app)
 
 ## Code style
