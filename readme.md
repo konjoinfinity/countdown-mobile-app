@@ -10,7 +10,6 @@ I wanted to create this project for practice, to learn, to challenge myself, to 
 ## Build status
 
 [![Build Status](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app)
-[![Log Scan](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app/logscans)
 
 ## Code style
 
