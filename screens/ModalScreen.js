@@ -6,6 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Haptics from 'expo-haptics';
 import { AntDesign } from '@expo/vector-icons'
+import MIcon from "@expo/vector-icons/MaterialIcons";
 
 const timerskey = "timers";
 const PALETTE = [
@@ -59,7 +60,7 @@ export default function ModalScreen({navigation}) {
         newCountdown.unshift({ name: "Timer", date: new Date(datePlusMins).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
         setDate(new Date())
         setTimers(newCountdown)
-        navigation.navigate("Root")
+        navigation.navigate("TabOne")
         await AsyncStorage.setItem(timerskey, JSON.stringify(newCountdown));
     } catch (error) {
       console.log(error);
@@ -70,8 +71,8 @@ export default function ModalScreen({navigation}) {
     <ScrollView contentContainerStyle={[styles.container, {backgroundColor: '#33364f'}]}>
       <View style={{height: Dimensions.get("window").height * 0.1, width: Dimensions.get("window").width * 1 ,backgroundColor: cardColor, position: 'absolute', top:0}}></View>
       <View style={{ justifyContent:'space-around', alignItems: 'center', flexDirection: 'row'}}>
-      <TouchableOpacity disabled={true}>
-        <AntDesign name="setting" size={28} color={"#33364f"}/>
+      <TouchableOpacity 
+              onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabThree")}}><MIcon name='history' size={30} color={"#e2e4f7"}/>
               </TouchableOpacity> 
       <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5}}>TIMER</Text>
       <TouchableOpacity onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}>

@@ -38,12 +38,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={TabOneScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={ModalScreen} options={{headerShown: false }}/>
+      <Stack.Screen name="TabOne" component={TabOneScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TabTwo" component={TabTwoScreen} options={{headerShown: false}}/>
       <Stack.Screen name="TabThree" component={TabThreeScreen} options={{headerShown: false}}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-      <Stack.Screen name="Modal" component={ModalScreen} options={{headerShown: false, presentation: 'fullScreenModal' }}/>
       </Stack.Group>
     </Stack.Navigator>
   );

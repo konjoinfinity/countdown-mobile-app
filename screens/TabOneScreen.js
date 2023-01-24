@@ -53,7 +53,7 @@ export default function App({navigation}) {
 
     async function timerExpired(id){
       try{
-      Alert.alert("Time's up!")
+      Haptics.selectionAsync();
       var newHistory = history;
       var newTimers = timers;
       newHistory.unshift(timers[id]);
@@ -122,7 +122,7 @@ onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabTwo", {name: t
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row'}}
-                onPress={() => {Haptics.selectionAsync(); navigation.navigate("Modal")}}>
+                onPress={() => {Haptics.selectionAsync(); navigation.navigate("Root")}}>
                   <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={['#d42c75', '#f7876b']} style={{borderRadius: 50 }}>
                 <MIcon color={'#fff'} name="add" style={{padding: 10 }} size={70} />
                 </LinearGradient>

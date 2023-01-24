@@ -67,7 +67,7 @@ onLongPress={() => {Haptics.selectionAsync()}}>
       <TouchableOpacity disabled={true} style={{ borderRadius: 50, padding: 15, opacity: 0.1, margin:10}}><MIcon name='arrow-back' size={32} color={"#33364f"}/>
       </TouchableOpacity>
       </View>
-      <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#2e3048", backgroundColor: "#33364f", 
+      <ScrollView contentContainerStyle={{ backgroundColor: "#2e3048", backgroundColor: "#33364f", 
       flexDirection:"row", flexWrap:"wrap", justifyContent:"space-evenly", alignItems: 'center' }}>
          {history && history.length > 0 ? history.map((tile, id) => { 
     return <Tile key={id} tile={tile} id={id} />
