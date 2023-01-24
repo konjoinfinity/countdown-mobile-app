@@ -16,7 +16,8 @@ If you're using any code style like xo, standard etc. That will help others whil
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
  
 ## Screenshots
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/jVSl3BJerOk)
+[![Watch the video][(https://user-images.githubusercontent.com/46323883/214308915-6eac9773-69e4-4510-a157-15525f1bb133.png)](https://youtu.be/jVSl3BJerOk)
+
 
 ## Tech/framework used
 React Native Expo
