@@ -8,13 +8,11 @@ Link: (https://www.codementor.io/projects/mobile/countdown-mobile-app-bjzn08zcon
 I wanted to create this project for practice, to learn, to challenge myself, to release to the appstores. 
 
 ## Build status
-Build status of continus integration i.e. travis, appveyor etc. Ex. - 
 
 [![Build Status](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app)
 [![Log Scan](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app/logscans)
 
 ## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
  
@@ -26,16 +24,25 @@ https://user-images.githubusercontent.com/46323883/214310892-ae91de9f-245e-412a-
 React Native Expo
 
 <b>Built with</b>
-- [Electron](https://electron.atom.io)
+- [Expo](https://expo.dev/)
+- [React Native](https://reactnative.dev/)
 
 ## Features
-What makes your project stand out?
 
-## Code Example
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+The UI should include:
+* A countdown screen with a timer for the selected event ✅
+* A button to add a new countdown event ✅
+* A list of all active countdown events ✅
+
+For an extra challenge:
+* Allow users to view archives of past events ✅
+* Automatically trigger push notification reminders x days before each event 🟨 **planning**
+* Allow users to customize the look and feel of each event (i.e. choose a color scheme, add an emoji, or upload custom background images)✅
+* Create an iOS or Android widget to show countdown timers on the user’s home screen 🟨 **planning**
 
 ## Installation
-Provide step by step series of examples and explanations about how to get a development env running.
+
+`yarn`
 
 ## API Reference
 
