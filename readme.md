@@ -4,13 +4,14 @@ Created for an app challenge from devprojects (https://codementor.io)
 Link: (https://www.codementor.io/projects/mobile/countdown-mobile-app-bjzn08zcon)
 
 ## Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+
+I wanted to create this project for practice, to learn, to challenge myself, to release to the appstores. 
 
 ## Build status
 Build status of continus integration i.e. travis, appveyor etc. Ex. - 
 
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
+[![Build Status](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app)
+[![Log Scan](https://app.travis-ci.com/github/konjoinfinity/countdown-mobile-app/logscans)
 
 ## Code style
 If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
