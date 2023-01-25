@@ -29,7 +29,7 @@
     "android": {
       "versionCode": 6,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/timer.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.konjo.countdownmobileapp"
