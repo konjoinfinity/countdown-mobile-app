@@ -190,7 +190,7 @@ export default function TabOneScreen({ navigation, route }) {
         size={25}
         onChange={() => getWheel()}
         running={count}
-        onFinish={() => {Alert.alert("Time's up!"); navigation.navigate("Root")}}
+        onFinish={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning); Alert.alert("Time's up!"); navigation.navigate("Root")}}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>

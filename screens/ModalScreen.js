@@ -47,6 +47,10 @@ export default function ModalScreen({navigation}) {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      setDate(new Date(0, 0, 0, 0, 1, 5))
+      setName('Title')
+      setCardColor("#3e415b")
+      setColorSetting(false)
       getTimers();
       });
       return unsubscribe;
