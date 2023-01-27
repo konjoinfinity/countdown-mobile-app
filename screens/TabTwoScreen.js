@@ -122,27 +122,14 @@ export default function TabOneScreen({ navigation, route }) {
         }
       }
 
-      const editTimerColor = async(color) => {
+      const goBack = async() => {
         try {
-          setCardColor(color)
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          var editColor = timers;
-          editColor[id] = { name: name, date: date, dateCreated:  dateCreated, color: color };
-          setTimers(editColor)
-          await AsyncStorage.setItem(timerskey, JSON.stringify(editColor));
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-      const editTimerName = async(name) => {
-        try {
-          setName(name)
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          var editName = timers;
-          editName[id] = { name: name, date: date, dateCreated:  dateCreated, color: cardColor };
-          setTimers(editName)
-          await AsyncStorage.setItem(timerskey, JSON.stringify(editName));
+          Haptics.selectionAsync();
+          var editTimer = timers;
+          editTimer[id] = { name: name, date: date, dateCreated:  dateCreated, color: cardColor };
+          setTimers(editTimer)
+          await AsyncStorage.setItem(timerskey, JSON.stringify(editTimer));
+          navigation.navigate("TabOne")
         } catch (error) {
           console.log(error);
         }
@@ -163,14 +150,14 @@ export default function TabOneScreen({ navigation, route }) {
           shadowRadius: 1, 
           elevation: 8, padding: 10, zIndex:1 }}> 
           {PALETTE.map((color, id) => {
-            return <TouchableOpacity key={id} onPress={() => editTimerColor(color)} style={{backgroundColor:color, 
+            return <TouchableOpacity key={id} onPress={() => setCardColor(color)} style={{backgroundColor:color, 
             width: Dimensions.get("window").width * 0.12,height: Dimensions.get("window").width * 0.12,borderRadius: 50}}>
             </TouchableOpacity>
           })}
         <Input textStyle={{textAlign:'center',color: '#e2e4f7', fontSize: 25}} style={{ marginTop: 25,width: Dimensions.get("window").width * 0.9,backgroundColor: '#2E3048'}}
                 placeholder="Title"
                 value={name}
-                onChangeText={title => editTimerName(title)}
+                onChangeText={title => setName(title)}
                 blurOnSubmit={false}
                 onBlur={()=> Keyboard.dismiss()}
                 status='control'
@@ -208,7 +195,7 @@ export default function TabOneScreen({ navigation, route }) {
       </View>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>
       <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
-      onPress={() => {Haptics.selectionAsync(); navigation.navigate('TabOne')}}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
+      onPress={() => goBack()}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>
       </TouchableOpacity>
       <TouchableOpacity
               style={{
