@@ -75,7 +75,7 @@ export default function ModalScreen({navigation}) {
   }
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, {backgroundColor: '#33364f'}]}>
+    <View style={[styles.container, {backgroundColor: '#33364f'}]}>
       <View style={{height: Dimensions.get("window").height * 0.1, width: Dimensions.get("window").width * 1 ,backgroundColor: cardColor, position: 'absolute', top:0}}></View>
       <View style={{ justifyContent:'space-around', alignItems: 'center', flexDirection: 'row'}}>
       <TouchableOpacity 
@@ -129,7 +129,7 @@ export default function ModalScreen({navigation}) {
                 <Text style={{fontSize: 18, fontWeight: "600", paddingLeft: 25, letterSpacing: 1, paddingRight: 25, color:'#e2e4f7'}}>START</Text>
                 </LinearGradient>
               </TouchableOpacity>
-    </ScrollView>
+    </View>
   )
 }
 
