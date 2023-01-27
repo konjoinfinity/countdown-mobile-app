@@ -135,6 +135,19 @@ export default function TabOneScreen({ navigation, route }) {
         }
       }
 
+      const editTimerName = async(name) => {
+        try {
+          setName(name)
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          var editName = timers;
+          editName[id] = { name: name, date: date, dateCreated:  dateCreated, color: cardColor };
+          setTimers(editName)
+          await AsyncStorage.setItem(timerskey, JSON.stringify(editName));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f", flex: 1, justifyContent:"center", alignItems: "center"}}>
@@ -157,7 +170,7 @@ export default function TabOneScreen({ navigation, route }) {
         <Input textStyle={{textAlign:'center',color: '#e2e4f7', fontSize: 25}} style={{ marginTop: 25,width: Dimensions.get("window").width * 0.9,backgroundColor: '#2E3048'}}
                 placeholder="Title"
                 value={name}
-                onChangeText={title => setName(title)}
+                onChangeText={title => editTimerName(title)}
                 blurOnSubmit={false}
                 onBlur={()=> Keyboard.dismiss()}
                 status='control'
