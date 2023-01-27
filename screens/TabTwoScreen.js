@@ -116,7 +116,7 @@ export default function TabOneScreen({ navigation, route }) {
           setDate('')
           setId('')
           setTimers(newTimers);
-          await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers), () => {navigation.navigate("Root")});
+          await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers), () => {navigation.navigate("TabOne")});
         } catch (error) {
           console.log(error);
         }
