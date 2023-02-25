@@ -5,15 +5,11 @@ Link: (https://www.codementor.io/projects/mobile/countdown-mobile-app-bjzn08zcon
 
 ## Motivation
 
-I wanted to create this project for practice, to learn, to challenge myself, to release to the appstores. 
+I wanted to create this project for practice, to learn, to challenge myself, to release to the appstores. Check out the video demo below.
 
-## Build status
+## Build status & Code style
 
-[![Build Status](https://app.travis-ci.com/konjoinfinity/countdown-mobile-app.svg?branch=main)]
-
-## Code style
-
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+![Build Status](https://app.travis-ci.com/konjoinfinity/countdown-mobile-app.svg?branch=main) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
  
 ## Demo
 
