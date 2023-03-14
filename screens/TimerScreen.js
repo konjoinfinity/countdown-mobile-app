@@ -138,11 +138,10 @@ export default function TimerScreen({ navigation, route }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={{height: Dimensions.get("window").height * 1, backgroundColor: "#33364f", flex: 1, justifyContent:"center", alignItems: "center"}}>
-      <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5, paddingTop: 10}}>TIMER</Text>
+      <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5}}>TIMER</Text>
       <TouchableOpacity style={{position:'absolute', top: Dimensions.get("window").height * 0.0725, right: Dimensions.get("window").width * 0.08, padding: 15}} 
               onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}><AntDesign name="setting" size={28} color={"#e2e4f7"}/>
               </TouchableOpacity> 
-
               {colorSetting === true && <View style={{display: 'flex', alignItems: "center", justifyContent:'space-evenly', flexWrap: "wrap",position: 'absolute', flexDirection: 'row',
           top: Dimensions.get("window").width * 0.33,right: 0,backgroundColor: '#2E3048', borderRadius: 5, shadowColor:"#555a74", width: Dimensions.get("window").width * 1,
           shadowOffset: { height: 1.5, width: 1.5 }, 
@@ -177,15 +176,11 @@ export default function TimerScreen({ navigation, route }) {
       </AnimatableView>
       })}
       <View style={{ height: Dimensions.get("window").height * 0.22, width: Dimensions.get("window").height * 0.22, borderRadius: 100, 
-      position: 'absolute', justifyContent: 'center', alignItems: "center", bottom: Dimensions.get("window").height * 0.485, opacity: 0.8}}>
-      <Text style={{color:"#e2e4f7", textAlign: 'center', fontSize: 28}}>{name}</Text>
-      <Text style={{color:"#e2e4f7", fontSize: 18, textAlign: 'center'}}>{new Date(date).toLocaleDateString()}</Text>
-      </View>
-      <View style={{height: Dimensions.get("window").height * 0.25}}/>
-      <View style={{backgroundColor: cardColor, opacity: 0.8, alignSelf:"stretch", paddingLeft: 15, paddingRight: 15, paddingBottom: 15, marginTop: 10}}>
+      position: 'absolute', justifyContent: 'center', alignItems: "center", bottom: Dimensions.get("window").height * 0.441}}>
       <CountDown
         digitTxtStyle={{color: "#e2e4f7"}}
-        timeLabelStyle={{color: "#e2e4f7"}}
+        separatorStyle={{color: "#e2e4f7", margin: 0, padding: 0}}
+        showSeparator={true}
         until={totalsecs}
         size={25}
         onChange={() => getWheel()}
@@ -193,6 +188,7 @@ export default function TimerScreen({ navigation, route }) {
         onFinish={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning); Alert.alert("Time's up!"); navigation.navigate("Root")}}
         digitStyle={{backgroundColor: "transparent"}}/>
       </View>
+      <View style={{height: Dimensions.get("window").height * 0.25}}/>
       <View style={{alignItems: "center", flexDirection: "row", marginTop: Dimensions.get("window").height * 0.05}}>
       <TouchableOpacity style={{backgroundColor: '#3e415b', borderRadius: 50, padding: 15, opacity: 0.5, margin:10}} 
       onPress={() => goBack()}><MIcon name='arrow-back' size={32} color={"#e2e4f7"}/>

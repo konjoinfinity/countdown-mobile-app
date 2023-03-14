@@ -171,7 +171,7 @@ class CountDown extends React.Component {
         <View style={styles.timeInnerCont}>
           {this.renderDigit(digits)}
         </View>
-        {this.renderLabel(label)}
+        {/* {this.renderLabel(label)} */}
       </View>
     );
   };
@@ -203,8 +203,8 @@ class CountDown extends React.Component {
         style={styles.timeCont}
         onPress={this.props.onPress}
       >
-        {timeToShow.includes('D') ? this.renderDoubleDigits(timeLabels.d, newTime[0]) : null}
-        {showSeparator && timeToShow.includes('D') && timeToShow.includes('H') ? this.renderSeparator() : null}
+        {/* {timeToShow.includes('D') ? this.renderDoubleDigits(timeLabels.d, newTime[0]) : null}
+        {showSeparator && timeToShow.includes('D') && timeToShow.includes('H') ? this.renderSeparator() : null} */}
         {timeToShow.includes('H') ? this.renderDoubleDigits(timeLabels.h, newTime[1]) : null}
         {showSeparator && timeToShow.includes('H') && timeToShow.includes('M') ? this.renderSeparator() : null}
         {timeToShow.includes('M') ? this.renderDoubleDigits(timeLabels.m, newTime[2]) : null}
@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
   },
   digitCont: {
     borderRadius: 5,
-    marginHorizontal: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -269,6 +268,7 @@ const styles = StyleSheet.create({
   separatorTxt: {
     backgroundColor: 'transparent',
     fontWeight: 'bold',
+    paddingBottom: 5
   },
 });
 

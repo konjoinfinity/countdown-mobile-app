@@ -60,7 +60,6 @@ export default function StartScreen({navigation}) {
     let datePlusMins = new Date().setMinutes(new Date().getMinutes() + new Date(date).getMinutes())
     datePlusMins = new Date(datePlusMins).setHours(new Date(datePlusMins).getHours() + new Date(date).getHours())
     let dateToSave = new Date(datePlusMins).toLocaleString()
-    console.log(new Date(datePlusMins).toLocaleString())
     setTimeToAdd(datePlusMins)
     try {
         Haptics.selectionAsync()
