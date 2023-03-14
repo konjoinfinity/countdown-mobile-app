@@ -20,7 +20,7 @@ const PALETTE = [
 	'#812E5F'
 ]
 
-export default function ModalScreen({navigation}) {
+export default function StartScreen({navigation}) {
   const [date, setDate] = useState(new Date(0, 0, 0, 0, 1, 5));
   const [name, setName] = useState('Title')
   const [timeToAdd, setTimeToAdd] = useState(new Date().setSeconds(new Date().getSeconds() + 60))
@@ -59,15 +59,17 @@ export default function ModalScreen({navigation}) {
   const startCountdown = async() => {
     let datePlusMins = new Date().setMinutes(new Date().getMinutes() + new Date(date).getMinutes())
     datePlusMins = new Date(datePlusMins).setHours(new Date(datePlusMins).getHours() + new Date(date).getHours())
+    let dateToSave = new Date(datePlusMins).toLocaleString()
     console.log(new Date(datePlusMins).toLocaleString())
     setTimeToAdd(datePlusMins)
     try {
         Haptics.selectionAsync()
         var newCountdown = timers;
-        newCountdown.unshift({ name: name, date: new Date(datePlusMins).toLocaleString(), dateCreated: new Date().toLocaleString(), color: cardColor });
-        setDate(new Date())
+        newCountdown.unshift({ name: name, date: dateToSave, dateCreated: new Date().toLocaleString(), color: cardColor });
         setTimers(newCountdown)
-        navigation.navigate("TabOne")
+        navigation.navigate("Timer", {name: name, date: dateToSave, id: 1, dateCreated: new Date().toLocaleString(), color: cardColor})
+        // navigation.navigate("Timers")
+        setDate(new Date())
         await AsyncStorage.setItem(timerskey, JSON.stringify(newCountdown));
     } catch (error) {
       console.log(error);
@@ -79,7 +81,7 @@ export default function ModalScreen({navigation}) {
       <View style={{height: Dimensions.get("window").height * 0.1, width: Dimensions.get("window").width * 1 ,backgroundColor: cardColor, position: 'absolute', top:0}}></View>
       <View style={{ justifyContent:'space-around', alignItems: 'center', flexDirection: 'row'}}>
       <TouchableOpacity 
-              onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabOne")}}><MIcon name='access-time' size={30} color={"#e2e4f7"}/>
+              onPress={() => {Haptics.selectionAsync(); navigation.navigate("Timers")}}><MIcon name='access-time' size={30} color={"#e2e4f7"}/>
               </TouchableOpacity> 
       <Text style={{color:"#e2e4f7", fontSize: 25, fontWeight: "600", letterSpacing: 1.5}}>TIMER</Text>
       <TouchableOpacity onPress={() => { Haptics.selectionAsync(); colorSetting == false ? setColorSetting(true) : setColorSetting(false)}}>

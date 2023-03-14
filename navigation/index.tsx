@@ -11,10 +11,10 @@ import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
+import StartScreen from '../screens/StartScreen';
+import TimersScreen from '../screens/TimersScreen';
+import TimerScreen from '../screens/TimerScreen';
+import HistoryScreen from '../screens/HistoryScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -37,12 +37,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={ModalScreen} options={{headerShown: false }}/>
-      <Stack.Screen name="TabOne" component={TabOneScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TabTwo" component={TabTwoScreen} options={{headerShown: false}}/>
-      <Stack.Screen name="TabThree" component={TabThreeScreen} options={{headerShown: false}}/>
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-      </Stack.Group>
+      <Stack.Screen name="Root" component={StartScreen} options={{headerShown: false }}/>
+      <Stack.Screen name="Timers" component={TimersScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Timer" component={TimerScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="History" component={HistoryScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 }
@@ -57,28 +55,14 @@ function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    // <BottomTab.Navigator
-    //   initialRouteName="TabOne"
-    //   screenOptions={{
-    //     tabBarActiveTintColor: Colors[colorScheme].tint,
-    //   }}>
-    //   <BottomTab.Screen
-    //     name="TabOne"
-    //     component={TabOneScreen}
-    //     options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-    //       title: 'Tab One',
-    //       tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-    //     })}
-    //   />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Timer"
+        component={TimerScreen}
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-    // </BottomTab.Navigator>
   );
 }
 

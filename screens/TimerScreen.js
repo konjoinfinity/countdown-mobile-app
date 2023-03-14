@@ -35,7 +35,7 @@ const PALETTE = [
 	'#812E5F'
 ]
 
-export default function TabOneScreen({ navigation, route }) {
+export default function TimerScreen({ navigation, route }) {
   let totalsecs = (new Date(route.params.date).getTime() - new Date().getTime()) / 1000
   const { colors } = useTheme();
   let colorScheme = useColorScheme();
@@ -116,7 +116,7 @@ export default function TabOneScreen({ navigation, route }) {
           setDate('')
           setId('')
           setTimers(newTimers);
-          await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers), () => {navigation.navigate("TabOne")});
+          await AsyncStorage.setItem(timerskey, JSON.stringify(newTimers), () => {navigation.navigate("Timers")});
         } catch (error) {
           console.log(error);
         }
@@ -129,7 +129,7 @@ export default function TabOneScreen({ navigation, route }) {
           editTimer[id] = { name: name, date: date, dateCreated:  dateCreated, color: cardColor };
           setTimers(editTimer)
           await AsyncStorage.setItem(timerskey, JSON.stringify(editTimer));
-          navigation.navigate("TabOne")
+          navigation.navigate("Timers")
         } catch (error) {
           console.log(error);
         }

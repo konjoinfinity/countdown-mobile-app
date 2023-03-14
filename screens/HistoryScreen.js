@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 AnimatableView = Animatable.createAnimatableComponent(View);
 const historykey = "history"
 
-export default function App({navigation}) {
+export default function HistoryScreen({navigation}) {
   let colorScheme = useColorScheme();
   const { colors } = useTheme();
   const [history, setHistory] = useState([])

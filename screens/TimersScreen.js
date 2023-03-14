@@ -13,7 +13,7 @@ AnimatableView = Animatable.createAnimatableComponent(View);
 const timerskey = "timers";
 const historykey = "history"
 
-export default function App({navigation}) {
+export default function TimersScreen({navigation}) {
   let colorScheme = useColorScheme();
   const { colors } = useTheme();
   const [timers, setTimers] = useState([])
@@ -73,7 +73,7 @@ export default function App({navigation}) {
     return(
 <TouchableOpacity style={{backgroundColor: "#555a74", borderColor: "#555a74", height: Dimensions.get('window').width * 0.45, 
 width: Dimensions.get('window').width * 0.45, marginTop: 10, borderRadius: 5}} 
-onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabTwo", {name: tile.name, date: tile.date, id: id, dateCreated: tile.dateCreated, color: tile.color})}}>
+onPress={() => {Haptics.selectionAsync(); navigation.navigate("Timer", {name: tile.name, date: tile.date, id: id, dateCreated: tile.dateCreated, color: tile.color})}}>
   <LinearGradient start={{x: 0.01, y: 0.25}} end={{ x: 0.99, y: 0.75 }} locations={[0.01, 0.99]} colors={["#555a74", "#3e415b"]} style={{borderRadius: 5, height: Dimensions.get('window').width * 0.45 }}>
       <View style={{backgroundColor: tile.color, opacity: 0.8, alignSelf:"stretch", paddingLeft: 20, paddingRight: 20, paddingBottom: 10}}>
       <CountDown
@@ -106,7 +106,7 @@ onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabTwo", {name: t
       </ScrollView>
       
       <TouchableOpacity style={{ borderRadius: 50, padding: 15, margin:15, position: 'absolute', top: 30, right: 10}} 
-              onPress={() => {Haptics.selectionAsync(); navigation.navigate("TabThree")}}><MIcon name='history' size={32} color={"#e2e4f7"}/>
+              onPress={() => {Haptics.selectionAsync(); navigation.navigate("History")}}><MIcon name='history' size={32} color={"#e2e4f7"}/>
               </TouchableOpacity> 
       <TouchableOpacity
               style={{position: 'absolute',
