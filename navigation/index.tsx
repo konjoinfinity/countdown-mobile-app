@@ -12,7 +12,6 @@ import { ColorSchemeName, Pressable } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
@@ -42,7 +41,6 @@ function RootNavigator() {
       <Stack.Screen name="TabOne" component={TabOneScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TabTwo" component={TabTwoScreen} options={{headerShown: false}}/>
       <Stack.Screen name="TabThree" component={TabThreeScreen} options={{headerShown: false}}/>
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
       </Stack.Group>
     </Stack.Navigator>
